@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { tap } from 'rxjs';
 import { InitializerService } from '../../shared/initializer.service';
 import { CvState } from '../cv/cv.state';
 import { Init } from './root.actions';
@@ -21,10 +22,24 @@ export class RootState {
     return state.isReady;
   }
 
+  @Selector()
+  static getLandingSubtitle(state: RootStateModel) {
+    return state.landingSubtitle;
+  }
+
   @Action(Init)
   init({ getState, patchState }: StateContext<RootStateModel>) {
-    // this.initializerService.initialize();
     const data = JSON.parse(localStorage.getItem('data')!);
-    patchState({ ...data, isReady: true });
+
+    if (data) {
+      console.log('local');
+      patchState({ ...data, isReady: true });
+    } else {
+      console.log('firestore');
+      this.initializerService
+        .initialize()
+        .pipe(tap((data) => localStorage.setItem('data', JSON.stringify(data))))
+        .subscribe((data) => patchState({ ...data, isReady: true }));
+    }
   }
 }

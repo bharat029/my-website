@@ -23,10 +23,11 @@ export interface VolunteerExperience extends Definition {
 }
 
 export interface CVStateModel {
-  education: Content[];
-  positionsOfResponsibility: Definition[];
-  technicalSkills: Definition[];
+  resumeUrl: string;
+  educations: Content[];
+  pors: Definition[];
+  techSkills: Definition[];
   hackathons: Hackathon[];
-  volunteerExperience: VolunteerExperience[];
-  workExperience: WorkExperience[];
+  volunteerExps: VolunteerExperience[];
+  workExps: WorkExperience[];
 }

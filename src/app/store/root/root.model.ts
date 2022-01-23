@@ -5,41 +5,39 @@ export interface Content {
   content: string;
 }
 
-export interface Project {
+export interface CardContent {
   id?: string;
   title: string;
+  cardImageUrl?: string;
+}
+
+export interface Project extends CardContent {
   descs: string[];
   current: boolean;
   repoLink?: string;
   visitLink?: string;
   highlights?: string[];
-  projectCardUrl?: string;
 }
 
-export interface Course {
-  id?: string;
-  title: string;
-  certi: string;
+export interface Course extends CardContent {
+  certificate: string;
   offeredBy: string;
   platform: string;
-  courseCardUrl?: string;
 }
 
-export interface Specialization {
-  id?: string;
-  certi: string;
-  title: string;
-  offeredBy: string;
-  platform: string;
-  specializationCardUrl?: string;
-  courses: { title: string; certi: string }[];
+export interface Specialization extends Course {
+  courses: { title: string; certificate: string }[];
 }
 
-export interface RootStateModel {
+export interface UserData {
+  landingSubtitle: string;
+  abouts: Content[];
+  projects: Project[];
+  cv: CVStateModel;
+  courses: Course[];
+  specializations: Specialization[];
+}
+
+export interface RootStateModel extends Partial<UserData> {
   isReady: boolean;
-  abouts?: Content[];
-  projects?: Project[];
-  cv?: CVStateModel;
-  courses?: Course[];
-  specializations?: Specialization[];
 }

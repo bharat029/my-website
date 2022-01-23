@@ -10,9 +10,9 @@ export class InitializerService {
   constructor(private db: Firestore) {}
 
   initialize() {
-    // return collectionData(collection(this.db, 'users')).pipe(
-    //   map((docs) => docs[0] as RootStateModel)
-    // );
-    addDoc(collection(this.db, 'users'), JSON.parse(localStorage.getItem('data')!)).then(() => console.log('done'));
+    // addDoc(collection(this.db, 'users'), JSON.parse(localStorage.getItem('newData')!)).then(() => console.log('done'));
+    return collectionData(collection(this.db, 'users')).pipe(
+      map((docs) => docs[0] as RootStateModel)
+    );
   }
 }

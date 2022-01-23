@@ -3,7 +3,7 @@ import {
   getAnalytics,
   provideAnalytics,
   ScreenTrackingService,
-  UserTrackingService
+  UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
