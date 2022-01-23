@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Lobster&display=swap');
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+div {
+  height: 100vh;
+  div {
+    height: 50%;
+    border-radius: 50%;
+    border: 2px solid;
+    font-size: 4rem;
+    font-weight: bold;
+    animation: spin 10s linear infinite;
+    font-family: 'Lobster', 'Dancing Script', cursive;
+  }
+}
