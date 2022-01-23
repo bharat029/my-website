@@ -1,6 +1,6 @@
 import { CVStateModel } from '../cv/cv.model';
 
-interface Content {
+export interface Content {
   id?: string;
   content: string;
 }

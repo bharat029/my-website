@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Init } from './store/root/root.actions';
+import { RootStateModel } from './store/root/root.model';
 import { RootState } from './store/root/root.state';
 
 @Component({
@@ -16,6 +16,6 @@ export class AppComponent {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
 
   constructor(private store: Store) {
-    setInterval(() => this.store.dispatch(new Init()), 1000);
+    this.store.dispatch(new Init());
   }
 }
