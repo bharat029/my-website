@@ -1,1 +1,16 @@
-<p>about works!</p>
+<div class="page-container">
+  <h1><i class="fa fa-user"></i><span>About</span></h1>
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+      <img
+        [src]="profileImageUrl$ | async"
+        fxFlex="20"
+        fxFlex.lt-md="100"
+        alt="Bharathan Mudaliar Profile Image"
+      />
+      <div id="abouts" fxFlex="75" fxFlex.lt-md="95">
+        <p *ngFor="let about of abouts$ | async">{{ about.content }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -38,17 +38,15 @@ $foreground-palette: map-get($theme, foreground);
 @include mat.all-component-themes($theme);
 
 /* You can add global styles to this file, and also import other style files */
-
-html,
-body {
-  height: 100%;
-}
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Lobster&display=swap");
 body {
   margin: 0;
+  padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: map-get($background-palette, background);
   color: map-get($foreground-palette, text);
 }
+
 h1,
 h2,
 h3,
@@ -57,35 +55,53 @@ h5,
 h6 {
   margin: 0 !important;
 }
+
 .truncate {
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 a {
   color: inherit;
 }
+
 a:focus,
 button:focus {
   outline: none;
 }
+
 .mat-primary-background,
 div[color="primary"] {
   background: mat.get-color-from-palette($primary-palette, default);
   color: mat.get-color-from-palette($primary-palette, default-contrast);
 }
+
 .mat-accent-background,
 div[color="accent"] {
   background: mat.get-color-from-palette($accent-palette, default);
   color: mat.get-color-from-palette($accent-palette, default-contrast);
 }
+
 .mat-warn-background,
 div[color="warn"] {
   background: mat.get-color-from-palette($warn-palette, default);
   color: mat.get-color-from-palette($warn-palette, default-contrast);
 }
-.mat-background {
-  background: map-get($background-palette, background);
-  color: map-get($foreground-palette, text);
+
+.page-container {
+  width: 90%;
+  margin: 1.5rem auto;
+  h1 {
+    padding-left: 0.5rem;
+    border-bottom: 1px solid #ffffff50;
+    i {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+  }
+  .content {
+    margin: 2rem;
+  }
 }

@@ -1,1 +1,34 @@
-<router-outlet></router-outlet>
+<div
+  [class.mobile]="isHandset$ | async"
+  id="container"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+>
+  <mat-toolbar color="primary">
+    <a routerLink="/" routerLinkActive="active" id="brand-name">
+      Bharathan Mudaliar
+    </a>
+    <ng-container *ngIf="isHandset$ | async; else desktop">
+      <button mat-button [matMenuTriggerFor]="mobileMenu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu class="mat-primary-background" [spellcheck]="" #mobileMenu>
+        <a mat-menu-item routerLink="/about">About</a>
+        <a mat-menu-item routerLink="/projects">Projects</a>
+        <a mat-menu-item routerLink="/courses">Courses</a>
+        <a mat-menu-item routerLink="/cv">CV</a>
+      </mat-menu>
+    </ng-container>
+    <ng-template #desktop>
+      <nav>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/projects" routerLinkActive="active">Projects</a>
+        <a routerLink="/courses" routerLinkActive="active">Courses</a>
+        <a routerLink="/cv" routerLinkActive="active">CV</a>
+      </nav>
+    </ng-template>
+  </mat-toolbar>
+  <main [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
+</div>

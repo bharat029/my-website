@@ -27,6 +27,19 @@ export class RootState {
     return state.landingSubtitle;
   }
 
+  @Selector()
+  static getProfileImageUrl(state: RootStateModel) {
+    return state.profileImageUrl;
+  }
+
+  @Selector()
+  static getSubtitleAndProfile(state: RootStateModel) {
+    return {
+      landingSubtitle: state.landingSubtitle,
+      profileImageUrl: state.profileImageUrl,
+    };
+  }
+
   @Action(Init)
   init({ getState, patchState }: StateContext<RootStateModel>) {
     const data = JSON.parse(localStorage.getItem('data')!);
@@ -41,5 +54,10 @@ export class RootState {
         .pipe(tap((data) => localStorage.setItem('data', JSON.stringify(data))))
         .subscribe((data) => patchState({ ...data, isReady: true }));
     }
+  }
+
+  @Selector()
+  static getAbouts(state: RootStateModel) {
+    return state.abouts;
   }
 }

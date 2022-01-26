@@ -1,6 +1,52 @@
-<h1>{{ landingSubtitle$ | async }}</h1>
-<div class="mat-background" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
-  <div color="primary" fxLayout="row wrap" fxLayoutAlign="center center">Primary</div>
-  <div color="accent" fxLayout="row wrap" fxLayoutAlign="center center">Accent</div>
-  <div color="warn" fxLayout="row wrap" fxLayoutAlign="center center">Warn</div>
+<div
+  fxLayout="column wrap"
+  fxLayoutAlign="start center"
+  id="landing-root"
+  [class.mobile]="isHandset$ | async"
+>
+  <div>Hello I'm</div>
+  <div>Bharathan Mudaliar</div>
+  <div>{{ landingSubtitle$ | async }}</div>
+  <mat-divider></mat-divider>
+  <nav fxLayout="row" fxLayoutAlign="space-evenly stretch">
+    <a routerLink="/about">About</a>
+    <mat-divider></mat-divider>
+    <a routerLink="/projects">Projects</a>
+    <mat-divider></mat-divider>
+    <a routerLink="/courses">Courses</a>
+    <mat-divider></mat-divider>
+    <a routerLink="/cv">CV</a>
+  </nav>
+</div>
+
+<div
+  [class.mobile]="isHandset$ | async"
+  class="mat-app-background contact-info-container"
+>
+  <div>Reach me at</div>
+  <div
+    fxLayout="row wrap"
+    fxLayoutAlign="space-evenly center"
+    class="contact-info"
+  >
+    <a aria-label="Email" href="mailto:vbharathan.2013@gmail.com">
+      <i class="fa fa-envelope"></i>
+    </a>
+    <a
+      aria-label="LinkedIn"
+      href="https://www.linkedin.com/in/bharathanmudaliar/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fa fa-linkedin"></i>
+    </a>
+    <a
+      aria-label="Github"
+      href="https://github.com/bharat029/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fa fa-github"></i>
+    </a>
+  </div>
 </div>

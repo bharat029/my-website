@@ -1,36 +1,125 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Lobster&display=swap");
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-h1 {
-  font-family: "Dancing Script", cursive;
-  display: block;
-  width: fit-content;
-  padding: 0 0.5rem;
-  margin: 0 auto !important;
-  border: 1px solid;
-  border-radius: 16px;
-}
-
-div {
-  height: calc(100vh - 36px);
-  border-radius: 1rem;
-  border: 1px solid;
+#landing-root {
+  background: url("/assets/images/background.jpg") #00000075 no-repeat
+    center/cover;
+  background-blend-mode: overlay;
+  clip-path: polygon(0 0, 0 75%, 100% 100%, 100% 0);
+  height: 100%;
+  padding-top: 6rem;
   div {
-    height: 350px;
-    width: 350px;
-    border-radius: 50%;
-    border: 2px solid;
+    text-align: center;
+  }
+  div:first-child {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+  div:nth-child(2) {
     font-size: 4rem;
-    font-weight: bold;
-    animation: spin 10s linear infinite;
-    font-family: "Lobster", "Dancing Script", cursive;
+    line-height: 4rem;
+    font-family: "Lobster", cursive;
+  }
+  div:nth-child(3) {
+    font-family: "Dancing Script", cursive;
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  & > mat-divider {
+    width: 80%;
+    border-bottom: 1px solid;
+  }
+  nav {
+    width: 75%;
+    margin-top: 0.5rem;
+    mat-divider {
+      border-left: 1px solid;
+    }
+    a {
+      width: fit-content;
+      text-align: center;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+    }
+  }
+  &.mobile {
+    clip-path: polygon(0 0, 0 65%, 100% 100%, 100% 0);
+    div:first-child {
+      font-size: 1.25rem;
+      line-height: 1.25rem;
+    }
+    div:nth-child(2) {
+      font-size: 2rem;
+      line-height: 2rem;
+    }
+    div:nth-child(3) {
+      font-size: 1.25rem;
+      line-height: 1.25rem;
+    }
+    a {
+      font-size: 0.75rem !important;
+      line-height: 0.75rem !important;
+    }
+  }
+}
+.contact-info-container {
+  position: fixed;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  width: 20%;
+  border: 0.5rem double;
+  font-size: 2rem;
+  padding: 0.5rem;
+  div:first-child {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .contact-info {
+    a {
+      text-decoration: none;
+      color: white;
+    }
+    .fa {
+      height: 30px;
+      width: 30px;
+      padding: 10px;
+      font-size: 30px;
+      text-align: center;
+      color: white;
+      border-radius: 50%;
+      transition: 1s ease-in-out;
+      &:hover,
+      &:focus {
+        transform: rotate(360deg);
+        background: white;
+      }
+    }
+  }
+  .fa-github {
+    background: #211f1f;
+    border: 1px solid #211f1f;
+    &:hover,
+    &:focus {
+      color: #211f1f !important;
+      border: 1px solid #211f1f !important;
+    }
+  }
+  .fa-linkedin {
+    background: #007bb5;
+    border: 1px solid #007bb5;
+    &:hover,
+    &:focus {
+      color: #007bb5 !important;
+      border: 1px solid #007bb5 !important;
+    }
+  }
+  .fa-envelope {
+    background: #dd4b39;
+    border: 1px solid #dd4b39;
+    &:hover,
+    &:focus {
+      color: #dd4b39 !important;
+      border: 1px solid #dd4b39 !important;
+    }
+  }
+  &.mobile {
+    width: 50%;
   }
 }

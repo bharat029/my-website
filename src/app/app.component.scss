@@ -1,0 +1,45 @@
+#container {
+  height: 100vh;
+  mat-toolbar {
+    position: sticky;
+    z-index: 2;
+    justify-content: space-between;
+    align-items: center;
+    #brand-name {
+      text-decoration: none;
+      font-size: 2.5rem;
+      font-family: "Dancing Script", cursive;
+      text-shadow: 0 1px 0 black, 1px 0 0 black, 1px 1px 0 black;
+    }
+    nav {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      a {
+        display: flex;
+        align-items: center;
+        width: 100px;
+        text-decoration: none;
+        justify-content: center;
+        &:hover,
+        &:focus {
+          background: #00000025;
+        }
+        &.active {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &.mobile {
+    mat-toolbar #brand-name {
+      font-size: 2rem;
+    }
+    mat-icon {
+      transform: scale(1.5);
+    }
+  }
+  main {
+    flex: 1;
+  }
+}

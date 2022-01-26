@@ -31,6 +31,7 @@ export interface Specialization extends Course {
 
 export interface UserData {
   landingSubtitle: string;
+  profileImageUrl: string;
   abouts: Content[];
   projects: Project[];
   cv: CVStateModel;
