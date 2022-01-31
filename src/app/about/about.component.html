@@ -5,10 +5,10 @@
       <img
         [src]="profileImageUrl$ | async"
         fxFlex="20"
-        fxFlex.lt-md="100"
+        fxFlex.lt-md="80"
         alt="Bharathan Mudaliar Profile Image"
       />
-      <div id="abouts" fxFlex="75" fxFlex.lt-md="95">
+      <div id="abouts" fxFlex="75" fxFlex.lt-md="100">
         <p *ngFor="let about of abouts$ | async">{{ about.content }}</p>
       </div>
     </div>

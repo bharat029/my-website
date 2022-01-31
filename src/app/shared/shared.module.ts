@@ -1,36 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 const materialModules = [
   LayoutModule,
   FlexLayoutModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatDialogModule,
   MatDividerModule,
+  MatExpansionModule,
   MatIconModule,
   MatListModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonToggleModule,
-  MatExpansionModule,
-  MatButtonModule,
-  MatDialogModule,
-  MatMenuModule,
-  MatSlideToggleModule,
 ];
 
 @NgModule({

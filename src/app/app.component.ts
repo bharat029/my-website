@@ -1,7 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import {
-  Component, OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import {
   ActivatedRoute,
@@ -10,7 +8,13 @@ import {
   RouterOutlet
 } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { filter, map, mergeMap, Observable } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  map,
+  mergeMap,
+  Observable
+} from 'rxjs';
 import { routeAnimations } from './route-animations';
 import { Init } from './store/root/root.actions';
 import { RootState } from './store/root/root.state';
@@ -23,11 +27,11 @@ import { RootState } from './store/root/root.state';
 })
 export class AppComponent implements OnInit {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
-  @Select(RootState.getSubtitleAndProfile) subtitleAndProfile$!: Observable<{
-    landingSubtitle: string;
-    profileImageUrl: string;
-  }>;
+  @Select(RootState.getLandingSubtitle) landingSubtitle$!: Observable<string>;
+  @Select(RootState.getProfileImageUrl) profileImageUrl$!: Observable<string>;
+
   isHandset$!: Observable<boolean>;
+  opened!: boolean;
 
   constructor(
     private store: Store,
@@ -44,44 +48,45 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new Init());
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        map(() => this.activatedRoute),
-        map((route) => {
-          while (route.firstChild) route = route.firstChild;
-          return route;
-        }),
-        filter((route) => route.outlet === 'primary'),
-        mergeMap((route) => route.data)
-      )
-      .subscribe((data) => {
-        this.titleService.setTitle(data['title']);
+    const routerData$ = this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.activatedRoute),
+      map((route) => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      }),
+      filter((route) => route.outlet === 'primary'),
+      mergeMap((route) => route.data)
+    );
 
-        this.subtitleAndProfile$.subscribe((subtitleAndProfile) => {
-          this.metaService.addTags([
-            {
-              name: 'description',
-              property: 'og:description',
-              content:
-                data['description'] ?? subtitleAndProfile.landingSubtitle,
-            },
-            {
-              name: 'title',
-              property: 'og:title',
-              content: data['title'],
-            },
-            {
-              property: 'og:image',
-              content: subtitleAndProfile.profileImageUrl,
-            },
-            {
-              property: 'og:url',
-              content: `https://bharathanmudaliar.com${this.router.url}`,
-            },
-          ]);
-        });
-      });
+    combineLatest([
+      routerData$,
+      this.landingSubtitle$,
+      this.profileImageUrl$,
+    ]).subscribe(([routerData, landingSubtitle, profileImageUrl]) => {
+      this.titleService.setTitle(routerData['title']);
+
+      this.metaService.addTags([
+        {
+          name: 'description',
+          property: 'og:description',
+          content: routerData['description'] ?? landingSubtitle,
+        },
+        {
+          name: 'title',
+          property: 'og:title',
+          content: routerData['title'],
+        },
+        {
+          property: 'og:image',
+          content: profileImageUrl,
+        },
+        {
+          property: 'og:url',
+          content: `https://bharathanmudaliar.com${this.router.url}`,
+        },
+      ]);
+    });
   }
 
   prepareRoute(outlet: RouterOutlet) {

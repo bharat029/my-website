@@ -32,14 +32,6 @@ export class RootState {
     return state.profileImageUrl;
   }
 
-  @Selector()
-  static getSubtitleAndProfile(state: RootStateModel) {
-    return {
-      landingSubtitle: state.landingSubtitle,
-      profileImageUrl: state.profileImageUrl,
-    };
-  }
-
   @Action(Init)
   init({ getState, patchState }: StateContext<RootStateModel>) {
     const data = JSON.parse(localStorage.getItem('data')!);
