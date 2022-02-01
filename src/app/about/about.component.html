@@ -13,4 +13,30 @@
       </div>
     </div>
   </div>
+
+  <ng-container *ngIf="(currentProjects$ | async)?.length">
+    <h1>Currently Working On</h1>
+    <div class="content">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let project of currentProjects$ | async">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ project.title }}
+            </mat-panel-title>
+            <mat-divider></mat-divider>
+          </mat-expansion-panel-header>
+          <p *ngFor="let desc of project.descs">{{ desc }}</p>
+          <mat-action-row fxLayoutAlign="start center">
+            <a
+              mat-raised-button
+              color="accent"
+              [routerLink]="['/projects', project.id]"
+            >
+              Read More...
+            </a>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </ng-container>
 </div>

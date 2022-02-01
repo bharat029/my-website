@@ -52,4 +52,9 @@ export class RootState {
   static getAbouts(state: RootStateModel) {
     return state.abouts;
   }
+
+  @Selector()
+  static getCurrentProjects(state: RootStateModel) {
+    return state.projects?.filter(project => project.current);
+  }
 }
