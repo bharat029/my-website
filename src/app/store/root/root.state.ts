@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs';
 import { InitializerService } from '../../shared/initializer.service';
+import { AuthState } from '../auth/auth.state';
 import { CvState } from '../cv/cv.state';
 import { Init } from './root.actions';
 import { RootStateModel } from './root.model';
@@ -11,7 +12,7 @@ import { RootStateModel } from './root.model';
   defaults: {
     isReady: false,
   },
-  children: [CvState],
+  children: [CvState, AuthState],
 })
 @Injectable()
 export class RootState {
@@ -55,6 +56,6 @@ export class RootState {
 
   @Selector()
   static getCurrentProjects(state: RootStateModel) {
-    return state.projects?.filter(project => project.current);
+    return state.projects?.filter((project) => project.current);
   }
 }

@@ -1,0 +1,13 @@
+.content {
+  margin: 2rem 1rem;
+  & > div {
+    min-height: 25vh;
+    overflow-x: hidden;
+    position: relative;
+    border: 1px solid #ffffff50;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-top: none;
+    padding: 1rem;
+  }
+}

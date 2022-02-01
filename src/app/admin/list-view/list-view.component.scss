@@ -1,0 +1,21 @@
+ul {
+  padding: 0;
+  list-style: none;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #a3a0a0;
+  color: white;
+  font-size: 1.25rem;
+  span {
+    flex-basis: 90%;
+    cursor: move;
+    max-width: 90%;
+  }
+  button {
+    margin: 0 0.25rem;
+  }
+}

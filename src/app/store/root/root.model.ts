@@ -1,3 +1,4 @@
+import { AuthStateModel } from '../auth/auth.model';
 import { CVStateModel } from '../cv/cv.model';
 
 export interface Content {
@@ -41,4 +42,5 @@ export interface UserData {
 
 export interface RootStateModel extends Partial<UserData> {
   isReady: boolean;
+  auth?: AuthStateModel;
 }

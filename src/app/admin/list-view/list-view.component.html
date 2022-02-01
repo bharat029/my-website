@@ -1,0 +1,7 @@
+<ul cdkDropList (cdkDropListDropped)="dropItem($event)">
+  <li cdkDrag *ngFor="let item of itemsList" class="mat-app-background">
+    <span class="truncate">{{ item[elementProperty] }}</span>
+    <button (click)="updateItem(item)" mat-mini-fab><mat-icon>edit</mat-icon></button>
+    <button (click)="delItem(item.id)" color="warn" mat-mini-fab><mat-icon>delete</mat-icon></button>
+  </li>
+</ul>

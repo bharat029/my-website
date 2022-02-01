@@ -1,1 +1,35 @@
-<p>admin-sign-in works!</p>
+<div class="page-container">
+  <h1><i class="fa fa-user"></i><span>Sign In</span></h1>
+
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <form
+      fxFlex="50"
+      fxFlex.lt-md="80"
+      fxLayout="row wrap"
+      fxLayoutAlign="center start"
+      class="mat-elevation-z8"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="signInModel"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Email"
+          type="email"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+        />
+      </mat-form-field>
+      <div fxFlex="100" fxLayout="row" fxLayoutAlign="center start">
+        <button color="accent" mat-raised-button>Sign In</button>
+      </div>
+    </form>
+  </div>
+</div>

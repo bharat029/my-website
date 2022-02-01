@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
+import { AuthState } from './store/auth/auth.state';
 import { CvState } from './store/cv/cv.state';
 import { RootState } from './store/root/root.state';
 
@@ -30,7 +31,7 @@ import { RootState } from './store/root/root.state';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
-    NgxsModule.forRoot([RootState, CvState], {
+    NgxsModule.forRoot([RootState, CvState, AuthState], {
       developmentMode: !environment.production,
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),

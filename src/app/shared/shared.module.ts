@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-
+import { MatTabsModule } from '@angular/material/tabs';
 
 const materialModules = [
   LayoutModule,
@@ -23,6 +23,7 @@ const materialModules = [
   MatExpansionModule,
   MatIconModule,
   MatListModule,
+  MatTabsModule,
 ];
 
 @NgModule({
