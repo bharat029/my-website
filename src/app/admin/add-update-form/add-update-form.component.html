@@ -32,6 +32,24 @@
           </button>
         </mat-form-field>
       </ng-container>
+      <ng-container *ngSwitchCase="FormType.RESUME">
+        <mat-form-field class="full-width">
+          <ngx-mat-file-input
+            #resume
+            formControlName="resume"
+            name="resume"
+            placeholder="Resume"
+          ></ngx-mat-file-input>
+          <button
+            mat-icon-button
+            matSuffix
+            *ngIf="!resume.empty"
+            (click)="resume.clear($event)"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
       <!--   <ng-container *ngSwitchCase="FormType.ABOUT">
         <mat-form-field class="full-width">
           <textarea cdkTextareaAutosize matInput placeholder="Content" formControlName="content"></textarea>

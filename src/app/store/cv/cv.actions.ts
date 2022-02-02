@@ -1,8 +1,6 @@
-import { CVStateModel } from './cv.model';
-
-export namespace CV {
-  export class Init {
-    static readonly type = '[Root State] Init CV';
-    constructor(public payload: CVStateModel) {}
+export namespace Resume {
+  export class Update {
+    static readonly type = '[General Admin] Update ResumeUrl';
+    constructor(public payload: string) {}
   }
 }

@@ -1,1 +1,8 @@
-<p>admin-abouts works!</p>
+<admin-list-view
+  [items]="abouts"
+  [property]="'content'"
+  (add)="add()"
+  (update)="update($event)"
+  (delete)="delete($event)"
+  (reorder)="reorder($event)"
+></admin-list-view>

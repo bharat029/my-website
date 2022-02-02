@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { first, Observable } from 'rxjs';
+import { Resume } from 'src/app/store/cv/cv.actions';
 import { CvState } from 'src/app/store/cv/cv.state';
-import {
-  LandingSubtitle,
-  ProfileImage
-} from 'src/app/store/root/root.actions';
+import { LandingSubtitle, ProfileImage } from 'src/app/store/root/root.actions';
 import { RootState } from 'src/app/store/root/root.state';
 import { AddUpdateFormComponent } from '../add-update-form/add-update-form.component';
 import { FirestoreService } from '../firestore.service';
@@ -65,6 +63,26 @@ export class GeneralComponent {
         );
         await this.firestore.update({ profileImageUrl });
         this.store.dispatch(new ProfileImage.Update(profileImageUrl));
+      });
+    });
+  }
+
+  updateResumeUrl() {
+    this.resumeUrl$.pipe(first()).subscribe((resumeUrl) => {
+      const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+        width: '50%',
+        data: {
+          type: FormType.RESUME,
+          edit: true,
+          data: resumeUrl,
+        },
+      });
+      dialogRef.afterClosed().subscribe(async (data) => {
+        const resumeUrl = await this.storage.uploadResume(
+          data.value.resume.files[0]
+        );
+        await this.firestore.updateCV({ resumeUrl });
+        this.store.dispatch(new Resume.Update(resumeUrl));
       });
     });
   }

@@ -1,6 +1,7 @@
 export enum FormType {
   LANDING_SUBTITLE = 'landing subtitle',
   PROFILE_IMAGE = 'profile image',
+  RESUME = 'resume',
   ABOUT = 'about',
   PROJECT = 'project',
   COURSE = 'course',

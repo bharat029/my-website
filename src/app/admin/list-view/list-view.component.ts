@@ -1,29 +1,43 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormType } from '../form.models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Definition,
+  WorkExperience,
+  Hackathon,
+  VolunteerExperience,
+} from 'src/app/store/cv/cv.model';
+import {
+  Content,
+  Course,
+  Project,
+  Specialization,
+} from 'src/app/store/root/root.model';
 
 @Component({
   selector: 'admin-list-view',
   templateUrl: './list-view.component.html',
-  styleUrls: ['./list-view.component.scss']
+  styleUrls: ['./list-view.component.scss'],
 })
 export class ListViewComponent {
-  @Input() itemsList!: any[];
-  @Input() elementProperty!: string;
+  @Input() items!: any[];
+  @Input() property!: string;
+  @Output() add = new EventEmitter();
   @Output() update = new EventEmitter();
   @Output() delete = new EventEmitter();
-  @Output() drop = new EventEmitter();
+  @Output() reorder = new EventEmitter();
 
-  constructor(private dialog: MatDialog, private store: Store) { }
+  constructor() {}
 
-  dropItem(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.itemsList, event.previousIndex, event.currentIndex);
-    this.drop.emit(this.itemsList);
+  addItem() {
+    this.add.emit();
   }
 
-  delItem(id: string) {
+  dropItem(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+    this.reorder.emit(this.items);
+  }
+
+  deleteItem(id: string) {
     this.delete.emit(id);
   }
 

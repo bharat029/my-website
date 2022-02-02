@@ -1,7 +1,7 @@
-import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { CVStateModel } from './cv.model';
 import { Injectable } from '@angular/core';
-import { CV } from './cv.actions';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Resume } from './cv.actions';
+import { CVStateModel } from './cv.model';
 
 @State<CVStateModel>({
   name: 'cv',
@@ -9,7 +9,20 @@ import { CV } from './cv.actions';
 @Injectable()
 export class CvState {
   @Selector()
+  static getCV(state: CVStateModel) {
+    return state;
+  }
+
+  @Selector()
   static getResumeUrl(state: CVStateModel) {
     return state.resumeUrl;
+  }
+
+  @Action(Resume.Update)
+  updateResumeUrl(
+    { getState, patchState }: StateContext<CVStateModel>,
+    { payload }: Resume.Update
+  ) {
+    patchState({ resumeUrl: payload });
   }
 }

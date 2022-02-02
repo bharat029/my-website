@@ -60,6 +60,11 @@ export class AddUpdateFormComponent implements OnInit {
           profileImage: [null],
         });
         break;
+      case FormType.RESUME:
+        this.formModel = this.fb.group({
+          resume: [null],
+        });
+        break;
       //   case FormType.ABOUT:
       //     if (this.data.edit) {
       //       this.formModel = this.fb.group({

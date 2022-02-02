@@ -9,6 +9,10 @@ import {
   QueryDocumentSnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { CVStateModel } from '../store/cv/cv.model';
+import { CvState } from '../store/cv/cv.state';
 import { UserData } from '../store/root/root.model';
 
 const converter = <T>() => ({
@@ -22,7 +26,7 @@ const converter = <T>() => ({
 export class FirestoreService {
   private docRef!: DocumentReference<UserData>;
 
-  constructor(private db: Firestore) {
+  constructor(private store: Store, private db: Firestore) {
     const collectionRef = collection(this.db, 'users').withConverter(
       converter<UserData>()
     );
@@ -34,5 +38,10 @@ export class FirestoreService {
 
   async update(data: Partial<UserData>) {
     return await updateDoc(this.docRef, data);
+  }
+
+  async updateCV(data: Partial<CVStateModel>) {
+    const cv = this.store.selectSnapshot((state) => state.root.cv);
+    return await updateDoc(this.docRef, { cv: { ...cv, ...data } });
   }
 }
