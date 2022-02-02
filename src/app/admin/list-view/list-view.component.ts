@@ -33,8 +33,10 @@ export class ListViewComponent {
   }
 
   dropItem(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
-    this.reorder.emit(this.items);
+    const items = [...this.items];
+
+    moveItemInArray(items, event.previousIndex, event.currentIndex);
+    this.reorder.emit(items);
   }
 
   deleteItem(id: string) {

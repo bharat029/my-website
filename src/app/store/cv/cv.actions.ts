@@ -1,6 +1,4 @@
-export namespace Resume {
-  export class Update {
-    static readonly type = '[General Admin] Update ResumeUrl';
-    constructor(public payload: string) {}
-  }
+export class SetResumeUrl {
+  static readonly type = '[General Admin] Set ResumeUrl';
+  constructor(public payload: string) {}
 }

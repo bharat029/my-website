@@ -5,8 +5,9 @@ import { AuthState } from '../auth/auth.state';
 import { CvState } from '../cv/cv.state';
 import {
   Init,
-  LandingSubtitle,
-  ProfileImage
+  SetAbouts,
+  SetLandingSubtitle,
+  SetProfileImage
 } from './root.actions';
 import { RootStateModel } from './root.model';
 
@@ -21,6 +22,13 @@ import { RootStateModel } from './root.model';
 export class RootState {
   constructor(private initializerService: InitializerService) {}
 
+  @Action(Init)
+  init({ getState, patchState }: StateContext<RootStateModel>) {
+    this.initializerService
+      .initialize()
+      .subscribe((data) => patchState({ ...data, isReady: true }));
+  }
+
   @Selector()
   static getIsReady(state: RootStateModel) {
     return state.isReady;
@@ -31,10 +39,10 @@ export class RootState {
     return state.landingSubtitle;
   }
 
-  @Action(LandingSubtitle.Update)
-  updateLandingSubtitle(
+  @Action(SetLandingSubtitle)
+  setLandingSubtitle(
     { getState, patchState }: StateContext<RootStateModel>,
-    { payload }: LandingSubtitle.Update
+    { payload }: SetLandingSubtitle
   ) {
     patchState({
       landingSubtitle: payload,
@@ -46,38 +54,29 @@ export class RootState {
     return state.profileImageUrl;
   }
 
-  @Action(ProfileImage.Update)
-  updateProfileImage(
+  @Action(SetProfileImage)
+  setProfileImage(
     { getState, patchState }: StateContext<RootStateModel>,
-    { payload }: ProfileImage.Update
+    { payload }: SetProfileImage
   ) {
     patchState({
       profileImageUrl: payload,
     });
   }
 
-  @Action(Init)
-  init({ getState, patchState }: StateContext<RootStateModel>) {
-    // const data = JSON.parse(localStorage.getItem('data')!);
-
-    // if (data) {
-    //   console.log('local');
-    //   patchState({ ...data, isReady: true });
-    // } else {
-    //   console.log('firestore');
-    //   this.initializerService
-    //     .initialize()
-    //     .pipe(tap((data) => localStorage.setItem('data', JSON.stringify(data))))
-    //     .subscribe((data) => patchState({ ...data, isReady: true }));
-    // }
-    this.initializerService
-      .initialize()
-      .subscribe((data) => patchState({ ...data, isReady: true }));
-  }
-
   @Selector()
   static getAbouts(state: RootStateModel) {
     return state.abouts;
+  }
+
+  @Action(SetAbouts)
+  setAbouts(
+    { getState, patchState }: StateContext<RootStateModel>,
+    { payload }: SetAbouts
+  ) {
+    patchState({
+      abouts: [...payload],
+    });
   }
 
   @Selector()

@@ -1,24 +1,19 @@
+import { Content } from './root.model';
+
 export class Init {
   static readonly type = '[App Component] Init';
 }
 
-export namespace About {
-  export class Add {
-    static readonly type = '[Admin] Add About';
-    constructor(public payload: string) {}
-  }
+export class SetAbouts {
+  static readonly type = '[Update Admin] Update Abouts';
+  constructor(public payload: Content[]) {}
+}
+export class SetLandingSubtitle {
+  static readonly type = '[General Admin] Update LandingSubtitle';
+  constructor(public payload: string) {}
 }
 
-export namespace LandingSubtitle {
-  export class Update {
-    static readonly type = '[General Admin] Update LandingSubtitle';
-    constructor(public payload: string) {}
-  }
-}
-
-export namespace ProfileImage {
-  export class Update {
-    static readonly type = '[General Admin] Update ProfileImageUrl';
-    constructor(public payload: string) {}
-  }
+export class SetProfileImage {
+  static readonly type = '[General Admin] Update ProfileImageUrl';
+  constructor(public payload: string) {}
 }

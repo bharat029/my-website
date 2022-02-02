@@ -2,7 +2,7 @@
   <li>
     <span>Landing Subtitle</span>
     <span class="truncate">{{ landingSubtitle$ | async }}</span>
-    <button mat-mini-fab (click)="updateLandingSubtitle()">
+    <button mat-mini-fab (click)="setLandingSubtitle()">
       <mat-icon>edit</mat-icon>
     </button>
   </li>
@@ -17,7 +17,7 @@
         {{ profileImageUrl$ | async }}
       </a>
     </span>
-    <button mat-mini-fab (click)="updateProfileImage()">
+    <button mat-mini-fab (click)="setProfileImage()">
       <mat-icon>edit</mat-icon>
     </button>
   </li>
@@ -28,7 +28,7 @@
         {{ resumeUrl$ | async }}
       </a>
     </span>
-    <button mat-mini-fab (click)="updateResumeUrl()">
+    <button mat-mini-fab (click)="setResumeUrl()">
       <mat-icon>edit</mat-icon>
     </button>
   </li>

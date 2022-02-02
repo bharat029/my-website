@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  WorkExperience,
+  Definition,
   Hackathon,
   VolunteerExperience,
-  Definition,
+  WorkExperience,
 } from 'src/app/store/cv/cv.model';
 import {
   Content,
@@ -14,6 +14,7 @@ import {
   Specialization,
 } from 'src/app/store/root/root.model';
 import { FormType } from '../form.models';
+import { v4 as uuidv4 } from 'uuid';
 
 interface DialogData {
   edit: boolean;
@@ -55,27 +56,32 @@ export class AddUpdateFormComponent implements OnInit {
           landingSubtitle: [this.data.data],
         });
         break;
+
       case FormType.PROFILE_IMAGE:
         this.formModel = this.fb.group({
           profileImage: [null],
         });
         break;
+
       case FormType.RESUME:
         this.formModel = this.fb.group({
           resume: [null],
         });
         break;
-      //   case FormType.ABOUT:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         content: [ (this.data.data as Content).content ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         content: [ '' ],
-      //       });
-      //     }
-      //     break;
+
+      case FormType.ABOUT:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Content).id],
+            content: [(this.data.data as Content).content],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            content: [''],
+          });
+        }
+        break;
 
       //   case FormType.PROJECT:
       //     if (this.data.edit) {

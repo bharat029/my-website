@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from '@firebase/util';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
+import { SetAbouts } from 'src/app/store/root/root.actions';
 import { Content } from 'src/app/store/root/root.model';
 import { RootState } from 'src/app/store/root/root.state';
+import { AddUpdateFormComponent } from '../add-update-form/add-update-form.component';
+import { FirestoreService } from '../firestore.service';
+import { FormType } from '../form.models';
 
 @Component({
   selector: 'admin-abouts',
@@ -13,17 +18,59 @@ export class AboutsComponent implements OnInit {
   @Select(RootState.getAbouts) abouts$!: Observable<Content[]>;
   abouts!: Content[];
 
-  constructor() {}
+  constructor(
+    private dialog: MatDialog,
+    private firestore: FirestoreService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.abouts$.subscribe((abouts) => (this.abouts = abouts));
   }
 
-  add() {}
+  add() {
+    const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+      width: '50%',
+      data: {
+        type: FormType.ABOUT,
+        edit: false,
+      },
+    });
 
-  update(about: Content) {}
+    dialogRef.afterClosed().subscribe(async (data) => {
+      try {
+        await this.set([...this.abouts, data.value]);
+      } catch (error) {}
+    });
+  }
 
-  delete(id: string) {}
+  update(about: Content) {
+    const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+      width: '50%',
+      data: {
+        type: FormType.ABOUT,
+        edit: true,
+        data: about,
+      },
+    });
 
-  reorder(abouts: Content[]) {}
+    dialogRef.afterClosed().subscribe(async (data) => {
+      try {
+        await this.set(
+          this.abouts.map((about) =>
+            about.id !== data.value.id ? about : data.value
+          )
+        );
+      } catch (error) {}
+    });
+  }
+
+  async delete(id: string) {
+    await this.set([...this.abouts.filter((about) => about.id !== id)]);
+  }
+
+  async set(abouts: Content[]) {
+    await this.firestore.update({ abouts });
+    this.store.dispatch(new SetAbouts(abouts));
+  }
 }
