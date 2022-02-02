@@ -13,6 +13,4 @@ export class AboutComponent {
   @Select(RootState.getProfileImageUrl) profileImageUrl$!: Observable<string>;
   @Select(RootState.getAbouts) abouts$!: Observable<Content[]>;
   @Select(RootState.getCurrentProjects) currentProjects$!: Observable<Project[]>;
-
-  constructor() {}
 }

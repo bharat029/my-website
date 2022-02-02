@@ -83,4 +83,9 @@ export class RootState {
   static getCurrentProjects(state: RootStateModel) {
     return state.projects?.filter((project) => project.current);
   }
+
+  @Selector()
+  static getProjects(state: RootStateModel) {
+    return state.projects;
+  }
 }

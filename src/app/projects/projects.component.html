@@ -1,3 +1,39 @@
-<div>
-  <p>projects works!</p>
+<div class="page-container">
+  <h1><i class="fa fa-cogs"></i><span>Projects</span></h1>
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+      <mat-card
+        *ngFor="let project of projects$ | async"
+        fxFlex.lt-md="95"
+        fxFlex="45"
+        style="margin: 0.75rem"
+      >
+        <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+          <mat-card-title>{{ project.title }}</mat-card-title>
+        </mat-card-header>
+        <img
+          mat-card-image
+          style="height: 35vmin"
+          [src]="
+            project.cardImageUrl ??
+            'https://firebasestorage.googleapis.com/v0/b/my-website-dev-2aa35.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=3f7d6185-f467-4b86-bd1f-2db8fa9068b1'
+          "
+        />
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+          <a mat-stroked-button [routerLink]="['./', project.id]">
+            Read More...
+          </a>
+          <a
+            *ngIf="project.visitLink"
+            mat-stroked-button
+            [href]="project.visitLink"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>

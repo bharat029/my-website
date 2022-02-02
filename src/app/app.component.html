@@ -1,5 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav class="mat-primary-background" #sidenav mode="over" [(opened)]="opened">
+  <mat-sidenav
+    class="mat-primary-background"
+    #sidenav
+    mode="over"
+    [(opened)]="opened"
+  >
     <div id="sidenav-header">
       <img [src]="profileImageUrl$ | async" alt="Profile Image" />
       <div>
@@ -53,8 +58,15 @@
         <a routerLink="/cv" routerLinkActive="active">CV</a>
       </nav>
     </mat-toolbar>
-    <main [@routeAnimations]="prepareRoute(outlet)">
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
+    <ng-container *ngIf="isReady$ | async; else loading">
+      <main [@routeAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </main>
+    </ng-container>
+    <ng-template #loading>
+      <div style="height: 100%;" fxLayout="row wrap" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="150"></mat-spinner>
+      </div>
+    </ng-template>
   </mat-sidenav-content>
 </mat-sidenav-container>

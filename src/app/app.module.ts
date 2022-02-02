@@ -22,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthState } from './store/auth/auth.state';
 import { CvState } from './store/cv/cv.state';
 import { RootState } from './store/root/root.state';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -29,6 +30,7 @@ import { RootState } from './store/root/root.state';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
     NgxsModule.forRoot([RootState, CvState, AuthState], {

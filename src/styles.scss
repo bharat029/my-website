@@ -101,6 +101,12 @@ div[color="warn"] {
       display: inline-block;
       margin-right: 1rem;
     }
+    span {
+      margin-right: 0.25rem;
+    }
+    a {
+      text-decoration: none !important;
+    }
   }
   .content {
     margin: 2rem;

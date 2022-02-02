@@ -1,20 +1,19 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
-  RouterOutlet
+  RouterOutlet,
 } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import {
-  combineLatest,
-  filter,
-  map,
-  mergeMap,
-  Observable
-} from 'rxjs';
+import { combineLatest, filter, map, mergeMap, Observable } from 'rxjs';
 import { routeAnimations } from './route-animations';
 import { Init } from './store/root/root.actions';
 import { RootState } from './store/root/root.state';
@@ -25,7 +24,7 @@ import { RootState } from './store/root/root.state';
   styleUrls: ['./app.component.scss'],
   animations: [routeAnimations],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentChecked {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
   @Select(RootState.getLandingSubtitle) landingSubtitle$!: Observable<string>;
   @Select(RootState.getProfileImageUrl) profileImageUrl$!: Observable<string>;
@@ -39,7 +38,8 @@ export class AppComponent implements OnInit {
     private metaService: Meta,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private cdRef: ChangeDetectorRef
   ) {
     this.isHandset$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
@@ -87,6 +87,10 @@ export class AppComponent implements OnInit {
         },
       ]);
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.isReady$.subscribe((isReady) => isReady && this.cdRef.detectChanges());
   }
 
   prepareRoute(outlet: RouterOutlet) {
