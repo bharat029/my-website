@@ -3,7 +3,7 @@ interface Content {
   content: string;
 }
 
-interface Definition {
+export interface Definition {
   id?: string;
   title: string;
   desc: string;

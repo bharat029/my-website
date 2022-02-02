@@ -1,1 +1,35 @@
-<p>general works!</p>
+<ul>
+  <li>
+    <span>Landing Subtitle</span>
+    <span class="truncate">{{ landingSubtitle$ | async }}</span>
+    <button mat-mini-fab (click)="updateLandingSubtitle()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </li>
+  <li>
+    <span>Profile Image</span>
+    <span class="truncate">
+      <a
+        [href]="profileImageUrl$ | async"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ profileImageUrl$ | async }}
+      </a>
+    </span>
+    <button mat-mini-fab (click)="updateProfileImage()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </li>
+  <li>
+    <span>Resume</span>
+    <span class="truncate">
+      <a [href]="resumeUrl$ | async" target="_blank" rel="noopener noreferrer">
+        {{ resumeUrl$ | async }}
+      </a>
+    </span>
+    <button mat-mini-fab>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </li>
+</ul>

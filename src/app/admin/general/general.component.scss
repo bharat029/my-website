@@ -1,0 +1,20 @@
+ul {
+  list-style: none;
+  li:first-child {
+    border-top: 1px solid #ffffff12;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.5rem;
+    border-bottom: 1px solid #ffffff12;
+
+    span:first-child {
+      flex-basis: 15%;
+    }
+    span:nth-child(2) {
+      flex: 1; 
+    }
+  }
+}

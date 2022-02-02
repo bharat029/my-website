@@ -40,8 +40,7 @@ export class SignInComponent implements OnInit {
     const { email, password } = this.signInModel.value;
 
     try {
-      const user = await this.auth.signIn(email, password);
-      console.log(user);
+      await this.auth.signIn(email, password);
     } catch (error) {
       console.log(error);
     }

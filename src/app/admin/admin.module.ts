@@ -1,13 +1,21 @@
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { SharedModule } from '../shared/shared.module';
 import { AboutsComponent } from './abouts/abouts.component';
+import { AddUpdateFormComponent } from './add-update-form/add-update-form.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { CoursesComponent } from './courses/courses.component';
 import { EducationsComponent } from './educations/educations.component';
+import { GeneralComponent } from './general/general.component';
 import { HackathonsComponent } from './hackathons/hackathons.component';
+import { ListViewComponent } from './list-view/list-view.component';
 import { PorsComponent } from './pors/pors.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -15,14 +23,6 @@ import { SpecializationsComponent } from './specializations/specializations.comp
 import { TechSkillsComponent } from './tech-skills/tech-skills.component';
 import { VolunteerExpsComponent } from './volunteer-exps/volunteer-exps.component';
 import { WorkExpsComponent } from './work-exps/work-exps.component';
-import { GeneralComponent } from './general/general.component';
-import { AddUpdateFormComponent } from './add-update-form/add-update-form.component';
-import { ListViewComponent } from './list-view/list-view.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    NgxMatFileInputModule,
+    MaterialFileInputModule,
     ReactiveFormsModule,
     SharedModule,
   ],

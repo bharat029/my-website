@@ -8,11 +8,8 @@ import { CV } from './cv.actions';
 })
 @Injectable()
 export class CvState {
-  @Action(CV.Init)
-  init(
-    { getState, patchState }: StateContext<CVStateModel>,
-    { payload }: CV.Init
-  ) {
-    patchState(payload);
+  @Selector()
+  static getResumeUrl(state: CVStateModel) {
+    return state.resumeUrl;
   }
 }

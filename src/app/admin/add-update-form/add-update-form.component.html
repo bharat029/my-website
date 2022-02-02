@@ -1,9 +1,38 @@
-<h2 mat-dialog-title>{{ data.edit ? 'Update': 'Add' }} {{ data.type | titlecase }}</h2>
+<h2 mat-dialog-title>
+  {{ data.edit ? "Update" : "Add" }} {{ data.type | titlecase }}
+</h2>
 
 <div mat-dialog-content>
   <form [formGroup]="formModel">
-    <!-- <ng-container [ngSwitch]="data.type">
-      <ng-container *ngSwitchCase="FormType.ABOUT">
+    <ng-container [ngSwitch]="data.type">
+      <ng-container *ngSwitchCase="FormType.LANDING_SUBTITLE">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Landing Subtitle"
+            formControlName="landingSubtitle"
+          />
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngSwitchCase="FormType.PROFILE_IMAGE">
+        <mat-form-field class="full-width">
+          <ngx-mat-file-input
+            #profileImage
+            formControlName="profileImage"
+            name="profileImage"
+            placeholder="Profile Image"
+          ></ngx-mat-file-input>
+          <button
+            mat-icon-button
+            matSuffix
+            *ngIf="!profileImage.empty"
+            (click)="profileImage.clear($event)"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
+      <!--   <ng-container *ngSwitchCase="FormType.ABOUT">
         <mat-form-field class="full-width">
           <textarea cdkTextareaAutosize matInput placeholder="Content" formControlName="content"></textarea>
         </mat-form-field>
@@ -179,11 +208,18 @@
             <button (click)="popControl(roles, i)" color="warn" mat-mini-fab><mat-icon>remove</mat-icon></button>
           </div>
         </div>
-      </ng-container>
+      </ng-container> -->
       <span *ngSwitchDefault></span>
-    </ng-container> -->
+    </ng-container>
     <div fxLayout="row" fxLayoutAlign="center center">
-      <button color="accent" [matDialogClose]="formModel" type="submit" mat-raised-button>Submit</button>
+      <button
+        color="accent"
+        [matDialogClose]="formModel"
+        type="submit"
+        mat-raised-button
+      >
+        Submit
+      </button>
     </div>
   </form>
 </div>
