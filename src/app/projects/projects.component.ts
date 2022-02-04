@@ -10,5 +10,6 @@ import { RootState } from '../store/root/root.state';
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent {
+  @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
   @Select(RootState.getProjects) projects$!: Observable<Project[]>;
 }

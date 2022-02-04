@@ -39,12 +39,19 @@ $foreground-palette: map-get($theme, foreground);
 
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Lobster&display=swap");
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: map-get($background-palette, background);
   color: map-get($foreground-palette, text);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 h1,
@@ -94,6 +101,7 @@ div[color="warn"] {
 .page-container {
   width: 90%;
   margin: 1.5rem auto;
+  min-height: 100%;
   h1 {
     padding-left: 0.5rem;
     border-bottom: 1px solid #ffffff50;

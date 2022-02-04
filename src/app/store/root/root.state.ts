@@ -88,4 +88,14 @@ export class RootState {
   static getProjects(state: RootStateModel) {
     return state.projects;
   }
+
+  @Selector()
+  static getCourses(state: RootStateModel) {
+    return state.courses;
+  }
+
+  @Selector()
+  static getSpecializations(state: RootStateModel) {
+    return state.specializations;
+  }
 }

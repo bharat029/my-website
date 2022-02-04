@@ -29,6 +29,7 @@ export class AdminComponent implements OnInit {
     { link: 'work-exps', label: 'Work Experiences' },
   ];
   activeLink!: string;
+  @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
   @Select(AuthState.getAuth) authState$!: Observable<AuthStateModel>;
 
   constructor(private router: Router, private auth: AuthService) {}

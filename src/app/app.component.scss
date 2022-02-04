@@ -37,16 +37,19 @@ mat-sidenav-content {
   flex-direction: column;
   mat-toolbar {
     position: sticky;
+    top: 0;
     z-index: 2;
     justify-content: space-between;
     align-items: center;
-    min-height: 56px;
+    // min-height: 56px;
+    &.desktop {
+      min-height: 64px;
+    }
     & > button {
       margin-right: 1rem;
       transform: scale(1.5);
     }
-    & > a:first-of-type {
-      text-decoration: none;
+    #brand-name {
       font-size: 2.5rem;
       font-family: "Dancing Script", cursive;
       text-shadow: 0 2px 1px black, 2px 0 1px black, 2px 2px 1px black;
@@ -58,6 +61,7 @@ mat-sidenav-content {
       gap: 5px;
       a {
         width: 95px;
+        // height: 2rem;
         text-align: center;
         border-radius: 5px;
         &:hover,

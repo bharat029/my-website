@@ -2,6 +2,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -23,6 +24,7 @@ import { SpecializationsComponent } from './specializations/specializations.comp
 import { TechSkillsComponent } from './tech-skills/tech-skills.component';
 import { VolunteerExpsComponent } from './volunteer-exps/volunteer-exps.component';
 import { WorkExpsComponent } from './work-exps/work-exps.component';
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -46,9 +48,11 @@ import { WorkExpsComponent } from './work-exps/work-exps.component';
     CommonModule,
     AdminRoutingModule,
     DragDropModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatTabsModule,
     MaterialFileInputModule,
     ReactiveFormsModule,
     SharedModule,

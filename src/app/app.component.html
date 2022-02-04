@@ -33,7 +33,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar [class.desktop]="!(isHandset$ | async)" color="primary">
       <button
         *ngIf="isHandset$ | async"
         mat-icon-button
@@ -42,15 +42,16 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <a
-        ngStyle.lt-md="font-size: 2rem;"
-        id="brand"
-        routerLink="/"
-        routerLinkActive="active"
-        id="brand-name"
-      >
-        Bharathan Mudaliar
-      </a>
+      <div id="brand-name">
+        <a
+          ngStyle.lt-md="font-size: 2rem;"
+          id="brand"
+          routerLink="/"
+          routerLinkActive="active"
+        >
+          Bharathan Mudaliar
+        </a>
+      </div>
       <nav *ngIf="!(isHandset$ | async)">
         <a routerLink="/about" routerLinkActive="active">About</a>
         <a routerLink="/projects" routerLinkActive="active">Projects</a>
@@ -58,15 +59,8 @@
         <a routerLink="/cv" routerLinkActive="active">CV</a>
       </nav>
     </mat-toolbar>
-    <ng-container *ngIf="isReady$ | async; else loading">
-      <main [@routeAnimations]="prepareRoute(outlet)">
-        <router-outlet #outlet="outlet"></router-outlet>
-      </main>
-    </ng-container>
-    <ng-template #loading>
-      <div style="height: 100%;" fxLayout="row wrap" fxLayoutAlign="center center">
-        <mat-spinner [diameter]="150"></mat-spinner>
-      </div>
-    </ng-template>
+    <main [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

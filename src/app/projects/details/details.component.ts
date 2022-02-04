@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Select } from '@ngxs/store';
-import { first, map, Observable, tap } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { Project } from 'src/app/store/root/root.model';
 import { RootState } from 'src/app/store/root/root.state';
 
@@ -12,6 +12,7 @@ import { RootState } from 'src/app/store/root/root.state';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
   @Select(RootState.getProjects) projects$!: Observable<Project[]>;
   project$!: Observable<Project>;
 
@@ -26,7 +27,7 @@ export class DetailsComponent implements OnInit {
     this.project$ = this.projects$.pipe(
       map(
         (projects) =>
-          projects.find(
+          projects && projects.find(
             (project) => project.id === this.route.snapshot.params['projectId']
           )!
       )
@@ -34,7 +35,7 @@ export class DetailsComponent implements OnInit {
 
     this.project$.pipe(first()).subscribe((project) => {
       if (!project) {
-        this.router.navigate(['/projects']);
+        this.router.navigate(['/not-found']);
       } else {
         this.title.setTitle(project.title + ' | Bharathan Mudaliar');
 

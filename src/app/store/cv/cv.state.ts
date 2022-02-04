@@ -9,6 +9,11 @@ import { CVStateModel } from './cv.model';
 @Injectable()
 export class CvState {
   @Selector()
+  static getCV(state: CVStateModel) {
+    return state;
+  }
+
+  @Selector()
   static getResumeUrl(state: CVStateModel) {
     return state.resumeUrl;
   }
@@ -19,5 +24,10 @@ export class CvState {
     { payload }: SetResumeUrl
   ) {
     patchState({ resumeUrl: payload });
+  }
+
+  @Selector()
+  static getEducations(state: CVStateModel) {
+    return state.educations;
   }
 }

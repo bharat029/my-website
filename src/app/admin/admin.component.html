@@ -1,24 +1,32 @@
-<div class="page-container">
-  <h1 fxLayout="row" fxLayoutAlign="space-between start">
-    <span>Admin</span>
-    <button mat-raised-button color="accent" (click)="signOut()">
-      SignOut
-    </button>
-  </h1>
-  <div class="content">
-    <nav mat-tab-nav-bar backgroundColor="primary">
-      <a
-        *ngFor="let link of links"
-        mat-tab-link
-        [routerLink]="['/admin', link.link]"
-        (click)="activeLink = link.link"
-        [active]="activeLink === link.link"
-      >
-        {{ link.label }}
-      </a>
-    </nav>
-    <div [@adminRouteAnimations]="prepareRoute(outlet)">
-      <router-outlet #outlet="outlet"></router-outlet>
+<ng-container *ngIf="isReady$ | async; else loading">
+  <div class="page-container">
+    <h1 fxLayout="row" fxLayoutAlign="space-between start">
+      <span>Admin</span>
+      <button mat-raised-button color="accent" (click)="signOut()">
+        SignOut
+      </button>
+    </h1>
+    <div class="content">
+      <nav mat-tab-nav-bar backgroundColor="primary">
+        <a
+          *ngFor="let link of links"
+          mat-tab-link
+          [routerLink]="['/admin', link.link]"
+          (click)="activeLink = link.link"
+          [active]="activeLink === link.link"
+        >
+          {{ link.label }}
+        </a>
+      </nav>
+      <div [@adminRouteAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+
+<ng-template #loading>
+  <div style="height: 100%" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="150"></mat-spinner>
+  </div>
+</ng-template>

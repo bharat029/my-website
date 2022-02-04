@@ -3,7 +3,7 @@ import {
   getAnalytics,
   provideAnalytics,
   ScreenTrackingService,
-  UserTrackingService
+  UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -22,7 +22,6 @@ import { SharedModule } from './shared/shared.module';
 import { AuthState } from './store/auth/auth.state';
 import { CvState } from './store/cv/cv.state';
 import { RootState } from './store/root/root.state';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -30,7 +29,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
     NgxsModule.forRoot([RootState, CvState, AuthState], {

@@ -6,7 +6,7 @@
 >
   <div>Hello I'm</div>
   <div>Bharathan Mudaliar</div>
-  <div>{{ landingSubtitle$ | async }}</div>
+  <div>{{ (landingSubtitle$ | async) ?? 'Loading...' }}</div>
   <mat-divider></mat-divider>
   <nav fxLayout="row" fxLayoutAlign="space-evenly stretch">
     <a routerLink="/about">About</a>

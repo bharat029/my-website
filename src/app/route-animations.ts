@@ -1,10 +1,10 @@
 import {
-  trigger,
-  style,
-  query,
   animate,
-  transition,
   group,
+  query,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
 
 const fromRight = () => [
@@ -191,7 +191,12 @@ const zoomIn = () => [
   group([
     query(
       ':leave',
-      [animate('750ms linear', style({ opacity: 0, transform: 'scale(10)' }))],
+      [
+        animate(
+          '750ms ease-in-out',
+          style({ opacity: 0, transform: 'scale(10)' })
+        ),
+      ],
       { optional: true }
     ),
     query(
@@ -249,7 +254,12 @@ const zoomOut = () => [
     ),
     query(
       ':enter',
-      [animate('750ms linear', style({ opacity: 1, transform: 'scale(1)' }))],
+      [
+        animate(
+          '750ms ease-in-out',
+          style({ opacity: 1, transform: 'scale(1)' })
+        ),
+      ],
       { optional: true }
     ),
   ]),

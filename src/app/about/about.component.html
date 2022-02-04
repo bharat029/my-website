@@ -1,42 +1,50 @@
-<div class="page-container">
-  <h1><i class="fa fa-user"></i><span>About</span></h1>
-  <div class="content">
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-      <img
-        [src]="profileImageUrl$ | async"
-        fxFlex="20"
-        fxFlex.lt-md="80"
-        alt="Bharathan Mudaliar Profile Image"
-      />
-      <div id="abouts" fxFlex="75" fxFlex.lt-md="100">
-        <p *ngFor="let about of abouts$ | async">{{ about.content }}</p>
+<ng-container *ngIf="isReady$ | async; else loading">
+  <div class="page-container">
+    <h1><i class="fa fa-user"></i><span>About</span></h1>
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+        <img
+          [src]="profileImageUrl$ | async"
+          fxFlex="20"
+          fxFlex.lt-md="80"
+          alt="Bharathan Mudaliar Profile Image"
+        />
+        <div id="abouts" fxFlex="75" fxFlex.lt-md="100">
+          <p *ngFor="let about of abouts$ | async">{{ about.content }}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <ng-container *ngIf="(currentProjects$ | async)?.length">
-    <h1>Currently Working On</h1>
-    <div class="content">
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let project of currentProjects$ | async">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ project.title }}
-            </mat-panel-title>
-            <mat-divider></mat-divider>
-          </mat-expansion-panel-header>
-          <p *ngFor="let desc of project.descs">{{ desc }}</p>
-          <mat-action-row fxLayoutAlign="start center">
-            <a
-              mat-raised-button
-              color="accent"
-              [routerLink]="['/projects', project.id]"
-            >
-              Read More...
-            </a>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
-  </ng-container>
-</div>
+    <ng-container *ngIf="(currentProjects$ | async)?.length">
+      <h1>Currently Working On</h1>
+      <div class="content">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let project of currentProjects$ | async">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ project.title }}
+              </mat-panel-title>
+              <mat-divider></mat-divider>
+            </mat-expansion-panel-header>
+            <p *ngFor="let desc of project.descs">{{ desc }}</p>
+            <mat-action-row fxLayoutAlign="start center">
+              <a
+                mat-raised-button
+                color="accent"
+                [routerLink]="['/projects', project.id]"
+              >
+                Read More...
+              </a>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div style="height: 100%" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="150"></mat-spinner>
+  </div>
+</ng-template>

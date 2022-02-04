@@ -1,1 +1,113 @@
-<p>courses works!</p>
+<ng-container *ngIf="isReady$ | async; else loading">
+  <div class="page-container">
+    <h1><i class="fa fa-book"></i><span>Courses and Specializations</span></h1>
+    <div class="content">
+      <section>
+        <h2>Specializations</h2>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+          <mat-card
+            *ngFor="let specialization of specializations$ | async"
+            fxFlex.lt-md="95"
+            fxFlex="45"
+            style="margin: 0.75rem"
+          >
+            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+              <mat-card-title>{{ specialization.title }}</mat-card-title>
+            </mat-card-header>
+            <img
+              mat-card-image
+              style="height: 35vmin"
+              [src]="
+                specialization.cardImageUrl ??
+                'https://firebasestorage.googleapis.com/v0/b/my-website-dev-2aa35.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=3f7d6185-f467-4b86-bd1f-2db8fa9068b1'
+              "
+            />
+            <mat-card-content>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Course List</mat-panel-title>
+                </mat-expansion-panel-header>
+                <ol>
+                  <li *ngFor="let course of specialization.courses">
+                    <a
+                      [href]="course.certificate"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="truncate"
+                    >
+                      {{ course.title }}
+                    </a>
+                  </li>
+                </ol>
+              </mat-expansion-panel>
+            </mat-card-content>
+            <mat-card-actions
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+            >
+              <span>{{ specialization.offeredBy }}</span>
+              <a
+                mat-stroked-button
+                *ngIf="specialization.cardImageUrl"
+                [href]="specialization.certificate"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Certificate Url
+              </a>
+              <span *ngIf="!(isHandset$ | async)">{{
+                specialization.platform
+              }}</span>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </section>
+
+      <section>
+        <h2>Courses</h2>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+          <mat-card
+            *ngFor="let course of courses$ | async"
+            fxFlex.lt-md="95"
+            fxFlex="45"
+            style="margin: 0.75rem"
+          >
+            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+              <mat-card-title>{{ course.title }}</mat-card-title>
+            </mat-card-header>
+            <img
+              mat-card-image
+              style="height: 35vmin"
+              [src]="
+                course.cardImageUrl ??
+                'https://firebasestorage.googleapis.com/v0/b/my-website-dev-2aa35.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=3f7d6185-f467-4b86-bd1f-2db8fa9068b1'
+              "
+            />
+            <mat-card-actions
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+            >
+              <span>{{ course.offeredBy }}</span>
+              <a
+                mat-stroked-button
+                *ngIf="course.cardImageUrl"
+                [href]="course.certificate"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Certificate Url
+              </a>
+              <span *ngIf="!(isHandset$ | async)">{{ course.platform }}</span>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </section>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div style="height: 100%" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="150"></mat-spinner>
+  </div>
+</ng-template>
