@@ -6,8 +6,11 @@ import { CvState } from '../cv/cv.state';
 import {
   Init,
   SetAbouts,
+  SetCourses,
   SetLandingSubtitle,
-  SetProfileImage
+  SetProfileImage,
+  SetProjects,
+  SetSpecializations
 } from './root.actions';
 import { RootStateModel } from './root.model';
 
@@ -35,13 +38,43 @@ export class RootState {
   }
 
   @Selector()
+  static getAbouts(state: RootStateModel) {
+    return state.abouts;
+  }
+
+  @Action(SetAbouts)
+  setAbouts(
+    { patchState }: StateContext<RootStateModel>,
+    { payload }: SetAbouts
+  ) {
+    patchState({
+      abouts: [...payload],
+    });
+  }
+
+  @Selector()
+  static getCourses(state: RootStateModel) {
+    return state.courses;
+  }
+
+  @Action(SetCourses)
+  setCourses(
+    { patchState }: StateContext<RootStateModel>,
+    { payload }: SetCourses
+  ) {
+    patchState({
+      courses: [...payload],
+    });
+  }
+
+  @Selector()
   static getLandingSubtitle(state: RootStateModel) {
     return state.landingSubtitle;
   }
 
   @Action(SetLandingSubtitle)
   setLandingSubtitle(
-    { getState, patchState }: StateContext<RootStateModel>,
+    { patchState }: StateContext<RootStateModel>,
     { payload }: SetLandingSubtitle
   ) {
     patchState({
@@ -56,26 +89,11 @@ export class RootState {
 
   @Action(SetProfileImage)
   setProfileImage(
-    { getState, patchState }: StateContext<RootStateModel>,
+    { patchState }: StateContext<RootStateModel>,
     { payload }: SetProfileImage
   ) {
     patchState({
       profileImageUrl: payload,
-    });
-  }
-
-  @Selector()
-  static getAbouts(state: RootStateModel) {
-    return state.abouts;
-  }
-
-  @Action(SetAbouts)
-  setAbouts(
-    { getState, patchState }: StateContext<RootStateModel>,
-    { payload }: SetAbouts
-  ) {
-    patchState({
-      abouts: [...payload],
     });
   }
 
@@ -89,13 +107,29 @@ export class RootState {
     return state.projects;
   }
 
-  @Selector()
-  static getCourses(state: RootStateModel) {
-    return state.courses;
+  @Action(SetProjects)
+  setProjects(
+    { patchState }: StateContext<RootStateModel>,
+    { payload }: SetProjects
+  ) {
+    patchState({
+      projects: [...payload],
+    });
   }
 
   @Selector()
   static getSpecializations(state: RootStateModel) {
     return state.specializations;
   }
+
+  @Action(SetSpecializations)
+  setSpecializations(
+    { patchState }: StateContext<RootStateModel>,
+    { payload }: SetSpecializations
+  ) {
+    patchState({
+      specializations: [...payload],
+    });
+  }
+
 }
