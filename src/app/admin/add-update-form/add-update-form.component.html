@@ -11,6 +11,7 @@
           <input matInput formControlName="landingSubtitle" />
         </mat-form-field>
       </ng-container>
+
       <ng-container *ngSwitchCase="FormType.PROFILE_IMAGE">
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Profile Image</mat-label>
@@ -29,6 +30,7 @@
           </button>
         </mat-form-field>
       </ng-container>
+
       <ng-container *ngSwitchCase="FormType.RESUME">
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Resume</mat-label>
@@ -47,6 +49,7 @@
           </button>
         </mat-form-field>
       </ng-container>
+
       <ng-container *ngSwitchCase="FormType.ABOUT">
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Content</mat-label>
@@ -57,6 +60,117 @@
           ></textarea>
         </mat-form-field>
       </ng-container>
+
+      <ng-container *ngSwitchCase="FormType.COURSE">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Platform</mat-label>
+            <input matInput formControlName="platform" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Offered By</mat-label>
+            <input matInput formControlName="offeredBy" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Certificate Url</mat-label>
+            <input matInput formControlName="certificate" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Card Image</mat-label>
+            <ngx-mat-file-input
+              #courseCardImg
+              formControlName="cardImage"
+              name="cardImage"
+            ></ngx-mat-file-input>
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="!courseCardImg.empty"
+              (click)="courseCardImg.clear($event)"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="FormType.SPECIALIZATION">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Platform</mat-label>
+            <input matInput formControlName="platform" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Offered By</mat-label>
+            <input matInput formControlName="offeredBy" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Certificate Url</mat-label>
+            <input matInput formControlName="certificate" />
+          </mat-form-field>
+          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>Courses</h3>
+            <button (click)="pushCourseGroup(courses, '', '')" mat-mini-fab>
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <br /><br /><br />
+          <div
+            fxFlex="100"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            *ngFor="let course of courses.controls; let i = index"
+            formArrayName="courses"
+          >
+            <div
+              fxFlex="90"
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+              [formGroupName]="i"
+            >
+              <mat-form-field appearance="fill" fxFlex="45">
+                <mat-label>Course # {{ i }} Title</mat-label>
+                <input matInput formControlName="title" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" fxFlex="45">
+                <mat-label>Course # {{ i }} Certificate Url</mat-label>
+                <input
+                  matInput
+                  formControlName="certificate"
+                />
+              </mat-form-field>
+            </div>
+            <button (click)="popControl(courses, i)" color="warn" mat-mini-fab>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Card Image</mat-label>
+            <ngx-mat-file-input
+              #specializationCardImg
+              formControlName="cardImage"
+              name="cardImage"
+            ></ngx-mat-file-input>
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="!specializationCardImg.empty"
+              (click)="specializationCardImg.clear($event)"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
       <!--   <ng-container *ngSwitchCase="FormType.PROJECT">
         <div fxLayout="row wrap" fxLayoutAlign="space-between start">
           <mat-form-field fxFlex="100">
@@ -95,28 +209,6 @@
           <mat-form-field fxFlex="100">
             <ngx-mat-file-input #projCardImg formControlName="projectCardImage" name="projectCardImage" placeholder="Project Card Image"></ngx-mat-file-input>
             <button mat-icon-button matSuffix *ngIf="!projCardImg.empty" (click)="projCardImg.clear($event)">
-              <mat-icon>clear</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.COURSE">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Title" formControlName="title">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Platform" formControlName="platform">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Offered By" formControlName="offeredBy">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Certificate URL" formControlName="certi">
-          </mat-form-field>
-          <mat-form-field fxFlex="100">
-            <ngx-mat-file-input #courseCardImg formControlName="courseCardImage" name="courseCardImage" placeholder="Course Card Image"></ngx-mat-file-input>
-            <button mat-icon-button matSuffix *ngIf="!courseCardImg.empty" (click)="courseCardImg.clear($event)">
               <mat-icon>clear</mat-icon>
             </button>
           </mat-form-field>
@@ -234,7 +326,7 @@
     <div fxLayout="row" fxLayoutAlign="center center">
       <button
         color="accent"
-        [matDialogClose]="formModel"
+        [matDialogClose]="formModel.value"
         type="submit"
         mat-raised-button
       >

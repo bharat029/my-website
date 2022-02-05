@@ -15,7 +15,7 @@ $primary-palette: mat.define-palette(mat.$purple-palette, 700);
 $accent-palette: mat.define-palette(mat.$green-palette, 700);
 
 // The warn palette is optional (defaults to red).
-$warn-palette: mat.define-palette(mat.$red-palette, 500);
+$warn-palette: mat.define-palette(mat.$red-palette, 700);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

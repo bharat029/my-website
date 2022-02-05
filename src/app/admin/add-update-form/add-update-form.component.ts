@@ -16,7 +16,7 @@ import {
 import { FormType } from '../form.models';
 import { v4 as uuidv4 } from 'uuid';
 
-interface DialogData {
+export interface DialogData {
   edit: boolean;
   type: FormType;
   data?:
@@ -83,6 +83,28 @@ export class AddUpdateFormComponent implements OnInit {
         }
         break;
 
+      case FormType.COURSE:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Course).id],
+            title: [(this.data.data as Course).title],
+            certificate: [(this.data.data as Course).certificate],
+            offeredBy: [(this.data.data as Course).offeredBy],
+            platform: [(this.data.data as Course).platform],
+            cardImage: [null],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            certificate: [''],
+            offeredBy: [''],
+            platform: [''],
+            cardImage: [null],
+          });
+        }
+        break;
+
       //   case FormType.PROJECT:
       //     if (this.data.edit) {
       //       this.formModel = this.fb.group({
@@ -119,54 +141,38 @@ export class AddUpdateFormComponent implements OnInit {
       //     }
       //     break;
 
-      //   case FormType.COURSE:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as Course).title ],
-      //         certi: [ (this.data.data as Course).certi ],
-      //         offeredBy: [ (this.data.data as Course).offeredBy ],
-      //         platform: [ (this.data.data as Course).platform ],
-      //         courseCardImage: [ '' ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         certi: [ '' ],
-      //         offeredBy: [ '' ],
-      //         platform: [ '' ],
-      //         courseCardImage: [ '' ],
-      //       });
-      //     }
-      //     break;
+      case FormType.SPECIALIZATION:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Specialization).id],
+            title: [(this.data.data as Specialization).title],
+            certificate: [(this.data.data as Specialization).certificate],
+            offeredBy: [(this.data.data as Specialization).offeredBy],
+            platform: [(this.data.data as Specialization).platform],
+            cardImage: [null],
+            courses: this.fb.array([]),
+          });
 
-      //   case FormType.SPECIALIZATION:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as Specialization).title ],
-      //         certi: [ (this.data.data as Specialization).certi ],
-      //         offeredBy: [ (this.data.data as Specialization).offeredBy ],
-      //         platform: [ (this.data.data as Specialization).platform ],
-      //         specializationCardImage: [ null ],
-      //         courses: this.fb.array([]),
-      //       });
+          this.courses = this.formModel.get('courses') as FormArray;
 
-      //       this.courses = (this.formModel.get('courses') as FormArray);
+          (this.data.data as Specialization).courses.forEach((course) =>
+            this.pushCourseGroup(this.courses, course.title, course.certificate)
+          );
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            certificate: [''],
+            offeredBy: [''],
+            platform: [''],
+            cardImage: [null],
+            courses: this.fb.array([]),
+          });
 
-      //       (this.data.data as Specialization).courses.forEach(course => this.pushCourseGroup(this.courses, course.title, course.certi));
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         certi: [ '' ],
-      //         offeredBy: [ '' ],
-      //         platform: [ '' ],
-      //         specializationCardImage: [ null ],
-      //         courses: this.fb.array([]),
-      //       });
-
-      //       this.courses = (this.formModel.get('courses') as FormArray);
-      //       this.pushCourseGroup(this.courses, '', '');
-      //     }
-      //     break;
+          this.courses = this.formModel.get('courses') as FormArray;
+          this.pushCourseGroup(this.courses, '', '');
+        }
+        break;
 
       //   case FormType.EDUCATION:
       //     if (this.data.edit) {
@@ -278,11 +284,11 @@ export class AddUpdateFormComponent implements OnInit {
     to.removeAt(idx);
   }
 
-  pushCourseGroup(to: FormArray, title: string, certi: string) {
+  pushCourseGroup(to: FormArray, title: string, certificate: string) {
     to.push(
       this.fb.group({
         title: [title],
-        certi: [certi],
+        certificate: [certificate],
       })
     );
   }

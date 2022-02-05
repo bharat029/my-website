@@ -5,7 +5,10 @@ import { Select, Store } from '@ngxs/store';
 import { SetAbouts } from 'src/app/store/root/root.actions';
 import { Content } from 'src/app/store/root/root.model';
 import { RootState } from 'src/app/store/root/root.state';
-import { AddUpdateFormComponent } from '../add-update-form/add-update-form.component';
+import {
+  AddUpdateFormComponent,
+  DialogData,
+} from '../add-update-form/add-update-form.component';
 import { FirestoreService } from '../firestore.service';
 import { FormType } from '../form.models';
 
@@ -29,7 +32,11 @@ export class AboutsComponent implements OnInit {
   }
 
   add() {
-    const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+    const dialogRef = this.dialog.open<
+      AddUpdateFormComponent,
+      DialogData,
+      Content
+    >(AddUpdateFormComponent, {
       width: '50%',
       data: {
         type: FormType.ABOUT,
@@ -37,15 +44,17 @@ export class AboutsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(async (data) => {
-      try {
-        await this.set([...this.abouts, data.value]);
-      } catch (error) {}
-    });
+    dialogRef
+      .afterClosed()
+      .subscribe((data) => data && this.set([...this.abouts, data]));
   }
 
   update(about: Content) {
-    const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+    const dialogRef = this.dialog.open<
+      AddUpdateFormComponent,
+      DialogData,
+      Content
+    >(AddUpdateFormComponent, {
       width: '50%',
       data: {
         type: FormType.ABOUT,
@@ -54,23 +63,25 @@ export class AboutsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(async (data) => {
-      try {
-        await this.set(
-          this.abouts.map((about) =>
-            about.id !== data.value.id ? about : data.value
+    dialogRef
+      .afterClosed()
+      .subscribe(
+        (data) =>
+          data &&
+          this.set(
+            this.abouts.map((about) => (about.id !== data.id ? about : data))
           )
-        );
-      } catch (error) {}
-    });
+      );
   }
 
-  async delete(id: string) {
-    await this.set([...this.abouts.filter((about) => about.id !== id)]);
+  delete(id: string) {
+    this.set([...this.abouts.filter((about) => about.id !== id)]);
   }
 
   async set(abouts: Content[]) {
-    await this.firestore.update({ abouts });
-    this.store.dispatch(new SetAbouts(abouts));
+    try {
+      await this.firestore.update({ abouts });
+      this.store.dispatch(new SetAbouts(abouts));
+    } catch (error) {}
   }
 }

@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -14,7 +19,7 @@ import { AuthService } from './auth.service';
   styleUrls: ['./admin.component.scss'],
   animations: [adminRouteAnimations],
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, AfterContentChecked {
   links = [
     { link: 'general', label: 'General' },
     { link: 'abouts', label: 'Abouts' },
@@ -32,11 +37,19 @@ export class AdminComponent implements OnInit {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
   @Select(AuthState.getAuth) authState$!: Observable<AuthStateModel>;
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private cdRef: ChangeDetectorRef
+  ) {}
+
+  ngAfterContentChecked(): void {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.activeLink = this.router.url.split('/')[2];
-    
+
     this.authState$.subscribe(
       (authState) =>
         authState.isReady &&

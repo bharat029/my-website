@@ -1,8 +1,14 @@
-<button mat-raised-button (click)="addItem()" color="accent">Add <mat-icon>add</mat-icon></button>
+<button mat-mini-fab (click)="addItem()" color="accent">
+  <mat-icon>add</mat-icon>
+</button>
 <ul cdkDropList (cdkDropListDropped)="dropItem($event)">
   <li cdkDrag *ngFor="let item of items" class="mat-app-background">
     <span class="truncate">{{ item[property] }}</span>
-    <button (click)="updateItem(item)" mat-mini-fab><mat-icon>edit</mat-icon></button>
-    <button (click)="deleteItem(item.id!)" color="warn" mat-mini-fab><mat-icon>delete</mat-icon></button>
+    <button (click)="updateItem(item)" mat-mini-fab>
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="deleteItem(item.id!)" color="warn" mat-mini-fab>
+      <mat-icon>delete</mat-icon>
+    </button>
   </li>
 </ul>

@@ -9,7 +9,10 @@ import {
   SetProfileImage,
 } from 'src/app/store/root/root.actions';
 import { RootState } from 'src/app/store/root/root.state';
-import { AddUpdateFormComponent } from '../add-update-form/add-update-form.component';
+import {
+  AddUpdateFormComponent,
+  DialogData,
+} from '../add-update-form/add-update-form.component';
 import { FirestoreService } from '../firestore.service';
 import { FormType } from '../form.models';
 import { StorageService } from '../storage.service';
@@ -33,7 +36,11 @@ export class GeneralComponent {
 
   setLandingSubtitle() {
     this.landingSubtitle$.pipe(first()).subscribe((landingSubtitle) => {
-      const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+      const dialogRef = this.dialog.open<
+        AddUpdateFormComponent,
+        DialogData,
+        { landingSubtitle: string }
+      >(AddUpdateFormComponent, {
         width: '50%',
         data: {
           type: FormType.LANDING_SUBTITLE,
@@ -44,10 +51,10 @@ export class GeneralComponent {
 
       dialogRef.afterClosed().subscribe(async (data) => {
         try {
-          await this.firestore.update(data.value);
-          this.store.dispatch(
-            new SetLandingSubtitle(data.value.landingSubtitle)
-          );
+          if (data) {
+            await this.firestore.update(data);
+            this.store.dispatch(new SetLandingSubtitle(data.landingSubtitle));
+          }
         } catch {}
       });
     });
@@ -55,7 +62,11 @@ export class GeneralComponent {
 
   setProfileImage() {
     this.profileImageUrl$.pipe(first()).subscribe((profileImageUrl) => {
-      const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+      const dialogRef = this.dialog.open<
+        AddUpdateFormComponent,
+        DialogData,
+        { profileImage: { files: File[] } }
+      >(AddUpdateFormComponent, {
         width: '50%',
         data: {
           type: FormType.PROFILE_IMAGE,
@@ -66,11 +77,13 @@ export class GeneralComponent {
 
       dialogRef.afterClosed().subscribe(async (data) => {
         try {
-          const profileImageUrl = await this.storage.uploadProfileImage(
-            data.value.profileImage.files[0]
-          );
-          await this.firestore.update({ profileImageUrl });
-          this.store.dispatch(new SetProfileImage(profileImageUrl));
+          if (data && data.profileImage) {
+            const profileImageUrl = await this.storage.uploadProfileImage(
+              data.profileImage.files[0]
+            );
+            await this.firestore.update({ profileImageUrl });
+            this.store.dispatch(new SetProfileImage(profileImageUrl));
+          }
         } catch {}
       });
     });
@@ -78,7 +91,11 @@ export class GeneralComponent {
 
   setResumeUrl() {
     this.resumeUrl$.pipe(first()).subscribe((resumeUrl) => {
-      const dialogRef = this.dialog.open(AddUpdateFormComponent, {
+      const dialogRef = this.dialog.open<
+        AddUpdateFormComponent,
+        DialogData,
+        { resume: { files: File[] } }
+      >(AddUpdateFormComponent, {
         width: '50%',
         data: {
           type: FormType.RESUME,
@@ -89,11 +106,13 @@ export class GeneralComponent {
 
       dialogRef.afterClosed().subscribe(async (data) => {
         try {
-          const resumeUrl = await this.storage.uploadResume(
-            data.value.resume.files[0]
-          );
-          await this.firestore.updateCV({ resumeUrl });
-          this.store.dispatch(new SetResumeUrl(resumeUrl));
+          if (data && data.resume) {
+            const resumeUrl = await this.storage.uploadResume(
+              data.resume.files[0]
+            )
+            await this.firestore.updateCV({ resumeUrl });
+            this.store.dispatch(new SetResumeUrl(resumeUrl));
+          }
         } catch (error) {}
       });
     });

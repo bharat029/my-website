@@ -7,7 +7,10 @@ import {
   group,
 } from '@angular/animations';
 
-const fromRight = () => [
+const fromRight = (
+  duration: string = '750ms',
+  timingFunction: string = 'ease-in-out'
+) => [
   query(
     ':enter',
     [
@@ -34,18 +37,31 @@ const fromRight = () => [
   group([
     query(
       ':leave',
-      [animate('500ms ease-in-out', style({ transform: 'translateX(-100%)' }))],
+      [
+        animate(
+          `${duration} ${timingFunction}`,
+          style({ transform: 'translateX(-100%)' })
+        ),
+      ],
       { optional: true }
     ),
     query(
       ':enter',
-      [animate('500ms ease-in-out', style({ transform: 'translateX(0)' }))],
+      [
+        animate(
+          `${duration} ${timingFunction}`,
+          style({ transform: 'translateX(0)' })
+        ),
+      ],
       { optional: true }
     ),
   ]),
 ];
 
-const fromLeft = () => [
+const fromLeft = (
+  duration: string = '750ms',
+  timingFunction: string = 'ease-in-out'
+) => [
   query(
     ':enter',
     [
@@ -72,52 +88,67 @@ const fromLeft = () => [
   group([
     query(
       ':leave',
-      [animate('500ms ease-in-out', style({ transform: 'translateX(100%)' }))],
+      [
+        animate(
+          `${duration} ${timingFunction}`,
+          style({ transform: 'translateX(100%)' })
+        ),
+      ],
       { optional: true }
     ),
     query(
       ':enter',
-      [animate('500ms ease-in-out', style({ transform: 'translateX(0)' }))],
+      [
+        animate(
+          `${duration} ${timingFunction}`,
+          style({ transform: 'translateX(0)' })
+        ),
+      ],
       { optional: true }
     ),
   ]),
 ];
 
-export const adminRouteAnimations = trigger('adminRouteAnimations', [
-  transition('* => general', fromLeft()),
-  transition('general => abouts', fromRight()),
-  transition('* => abouts', fromLeft()),
-  transition('general => courses', fromRight()),
-  transition('abouts => courses', fromRight()),
-  transition('* => courses', fromLeft()),
-  transition('general => educations', fromRight()),
-  transition('abouts => educations', fromRight()),
-  transition('courses => educations', fromRight()),
-  transition('* => educations', fromLeft()),
-  transition('general => hackathons', fromRight()),
-  transition('abouts => hackathons', fromRight()),
-  transition('courses => hackathons', fromRight()),
-  transition('educations => hackathons', fromRight()),
-  transition('* => hackathons', fromLeft()),
-  transition('work-exps => pors', fromLeft()),
-  transition('volunteer-exps => pors', fromLeft()),
-  transition('tech-skills => pors', fromLeft()),
-  transition('specializations => pors', fromLeft()),
-  transition('projects => pors', fromLeft()),
-  transition('* => pors', fromRight()),
-  transition('work-exps => projects', fromLeft()),
-  transition('volunteer-exps => projects', fromLeft()),
-  transition('tech-skills => projects', fromLeft()),
-  transition('specializations => projects', fromLeft()),
-  transition('* => projects', fromRight()),
-  transition('work-exps => specializations', fromLeft()),
-  transition('volunteer-exps => specializations', fromLeft()),
-  transition('tech-skills => specializations', fromLeft()),
-  transition('* => specializations', fromRight()),
-  transition('work-exps => tech-skills', fromLeft()),
-  transition('volunteer-exps => tech-skills', fromLeft()),
-  transition('* => tech-skills', fromRight()),
-  transition('work-exps => volunteer-exps', fromLeft()),
-  transition('* => volunteer-exps', fromRight()),
-  transition('* => work-exps', fromRight()),
-]);
+const triggerArray = (
+  duration: string = '750ms',
+  timingFunction: string = 'ease-in-out'
+) => [
+  transition('* => general', fromLeft(duration, timingFunction)),
+  transition('general => abouts', fromRight(duration, timingFunction)),
+  transition('* => abouts', fromLeft(duration, timingFunction)),
+  transition('general => courses', fromRight(duration, timingFunction)),
+  transition('abouts => courses', fromRight(duration, timingFunction)),
+  transition('* => courses', fromLeft(duration, timingFunction)),
+  transition('general => educations', fromRight(duration, timingFunction)),
+  transition('abouts => educations', fromRight(duration, timingFunction)),
+  transition('courses => educations', fromRight(duration, timingFunction)),
+  transition('* => educations', fromLeft(duration, timingFunction)),
+  transition('general => hackathons', fromRight(duration, timingFunction)),
+  transition('abouts => hackathons', fromRight(duration, timingFunction)),
+  transition('courses => hackathons', fromRight(duration, timingFunction)),
+  transition('educations => hackathons', fromRight(duration, timingFunction)),
+  transition('* => hackathons', fromLeft(duration, timingFunction)),
+  transition('work-exps => pors', fromLeft(duration, timingFunction)),
+  transition('volunteer-exps => pors', fromLeft(duration, timingFunction)),
+  transition('tech-skills => pors', fromLeft(duration, timingFunction)),
+  transition('specializations => pors', fromLeft(duration, timingFunction)),
+  transition('projects => pors', fromLeft(duration, timingFunction)),
+  transition('* => pors', fromRight(duration, timingFunction)),
+  transition('work-exps => projects', fromLeft(duration, timingFunction)),
+  transition('volunteer-exps => projects', fromLeft(duration, timingFunction)),
+  transition('tech-skills => projects', fromLeft(duration, timingFunction)),
+  transition('specializations => projects', fromLeft(duration, timingFunction)),
+  transition('* => projects', fromRight(duration, timingFunction)),
+  transition('work-exps => specializations', fromLeft(duration, timingFunction)),
+  transition('volunteer-exps => specializations', fromLeft(duration, timingFunction)),
+  transition('tech-skills => specializations', fromLeft(duration, timingFunction)),
+  transition('* => specializations', fromRight(duration, timingFunction)),
+  transition('work-exps => tech-skills', fromLeft(duration, timingFunction)),
+  transition('volunteer-exps => tech-skills', fromLeft(duration, timingFunction)),
+  transition('* => tech-skills', fromRight(duration, timingFunction)),
+  transition('work-exps => volunteer-exps', fromLeft(duration, timingFunction)),
+  transition('* => volunteer-exps', fromRight(duration, timingFunction)),
+  transition('* => work-exps', fromRight(duration, timingFunction)),
+]
+
+export const adminRouteAnimations = trigger('adminRouteAnimations', triggerArray('750ms', 'ease'));
