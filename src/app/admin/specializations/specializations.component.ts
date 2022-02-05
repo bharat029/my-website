@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SetSpecializations } from 'src/app/store/root/root.actions';
@@ -31,6 +32,7 @@ export class SpecializationsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private firestore: FirestoreService,
+    private snackbar: MatSnackBar,
     private store: Store,
     private storage: StorageService
   ) {}
@@ -42,41 +44,26 @@ export class SpecializationsComponent implements OnInit {
   }
 
   async toSpecialization(data: DialogReturnType): Promise<Specialization> {
+    let cardImageUrl: Specialization['cardImageUrl'];
+
     if (data.cardImage) {
-      const cardImageUrl = await this.storage.uploadSpecializationCardImage(
+      cardImageUrl = await this.storage.uploadSpecializationCardImage(
         data.cardImage.files[0],
         data.title
       );
-
-      return {
-        id: data.id,
-        title: data.title,
-        certificate: data.certificate,
-        offeredBy: data.offeredBy,
-        platform: data.platform,
-        courses: data.courses,
-        cardImageUrl,
-      };
     } else {
-      return data.cardImageUrl
-        ? {
-            id: data.id,
-            title: data.title,
-            certificate: data.certificate,
-            offeredBy: data.offeredBy,
-            platform: data.platform,
-            courses: data.courses,
-            cardImageUrl: data.cardImageUrl,
-          }
-        : {
-            id: data.id,
-            title: data.title,
-            certificate: data.certificate,
-            offeredBy: data.offeredBy,
-            platform: data.platform,
-            courses: data.courses,
-          };
+      cardImageUrl = data.cardImageUrl;
     }
+
+    return {
+      id: data.id,
+      title: data.title,
+      certificate: data.certificate,
+      offeredBy: data.offeredBy,
+      platform: data.platform,
+      courses: data.courses,
+      cardImageUrl,
+    };
   }
 
   add() {
@@ -96,7 +83,10 @@ export class SpecializationsComponent implements OnInit {
       try {
         if (data) {
           const newSpecialization = await this.toSpecialization(data);
-          this.set([...this.specializations, newSpecialization]);
+          await this.set([...this.specializations, newSpecialization]);
+          this.snackbar.open('Specialization Added!', 'Close', {
+            duration: 3000,
+          });
         }
       } catch (error) {}
     });
@@ -120,22 +110,26 @@ export class SpecializationsComponent implements OnInit {
       try {
         if (data) {
           const newSpecialization = await this.toSpecialization(data);
-          this.set(
+          await this.set(
             this.specializations.map((specialization) =>
               specialization.id !== data.id ? specialization : newSpecialization
             )
           );
+          this.snackbar.open('Specialization Updated!', 'Close', {
+            duration: 3000,
+          });
         }
       } catch (error) {}
     });
   }
 
-  delete(id: string) {
-    this.set([
+  async delete(id: string) {
+    await this.set([
       ...this.specializations.filter(
         (specialization) => specialization.id !== id
       ),
     ]);
+    this.snackbar.open('Specialization Delete!', 'Close', { duration: 3000 });
   }
 
   async set(specializations: Specialization[]) {

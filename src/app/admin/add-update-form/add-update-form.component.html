@@ -98,6 +98,93 @@
         </div>
       </ng-container>
 
+      <ng-container *ngSwitchCase="FormType.PROJECT">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Repository Link</mat-label>
+            <input matInput formControlName="repoLink" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Visit Link</mat-label>
+            <input matInput formControlName="visitLink" />
+          </mat-form-field>
+          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>Description</h3>
+            <button (click)="pushControl(descs, '')" mat-mini-fab>
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <br /><br /><br />
+          <div
+            fxFlex="100"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            *ngFor="let desc of descs.controls; let i = index"
+          >
+            <mat-form-field appearance="fill" fxFlex="90" formArrayName="descs">
+              <mat-label>Desc #{{ i + 1 }}</mat-label>
+              <textarea
+                cdkTextareaAutosize
+                matInput
+                [formControlName]="i"
+              ></textarea>
+            </mat-form-field>
+            <button (click)="popControl(descs, i)" color="warn" mat-mini-fab>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
+            <h3>Highlights</h3>
+            <button (click)="pushControl(highlights, '')" mat-mini-fab>
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <br /><br /><br />
+          <div
+            fxFlex="100"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            *ngFor="let hl of highlights.controls; let i = index"
+          >
+            <mat-form-field appearance="fill" fxFlex="90" formArrayName="highlights">
+              <mat-label>Highlight #{{ i + 1 }}</mat-label>
+              <input matInput [formControlName]="i" />
+            </mat-form-field>
+            <button
+              (click)="popControl(highlights, i)"
+              color="warn"
+              mat-mini-fab
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <mat-slide-toggle color="primary" formControlName="current">
+            Current
+          </mat-slide-toggle>
+          <br /><br />
+          <mat-form-field appearance="fill" fxFlex="100">
+            <mat-label>Card Image</mat-label>
+            <ngx-mat-file-input
+              #projCardImg
+              formControlName="cardImage"
+              name="cardImage"
+            ></ngx-mat-file-input>
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="!projCardImg.empty"
+              (click)="projCardImg.clear($event)"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
       <ng-container *ngSwitchCase="FormType.SPECIALIZATION">
         <div fxLayout="row wrap" fxLayoutAlign="space-between start">
           <mat-form-field appearance="fill" fxFlex="45">
@@ -142,10 +229,7 @@
               </mat-form-field>
               <mat-form-field appearance="fill" fxFlex="45">
                 <mat-label>Course # {{ i }} Certificate Url</mat-label>
-                <input
-                  matInput
-                  formControlName="certificate"
-                />
+                <input matInput formControlName="certificate" />
               </mat-form-field>
             </div>
             <button (click)="popControl(courses, i)" color="warn" mat-mini-fab>

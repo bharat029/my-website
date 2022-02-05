@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SetCourses } from 'src/app/store/root/root.actions';
@@ -29,6 +30,7 @@ export class CoursesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private firestore: FirestoreService,
+    private snackbar: MatSnackBar,
     private store: Store,
     private storage: StorageService
   ) {}
@@ -38,38 +40,25 @@ export class CoursesComponent implements OnInit {
   }
 
   async toCourse(data: DialogReturnType): Promise<Course> {
+    let cardImageUrl: Course['cardImageUrl'];
+
     if (data.cardImage) {
-      const cardImageUrl = await this.storage.uploadCourseCardImage(
+      cardImageUrl = await this.storage.uploadCourseCardImage(
         data.cardImage.files[0],
         data.title
       );
-
-      return {
-        id: data.id,
-        title: data.title,
-        certificate: data.certificate,
-        offeredBy: data.offeredBy,
-        platform: data.platform,
-        cardImageUrl,
-      };
     } else {
-      return data.cardImageUrl
-        ? {
-            id: data.id,
-            title: data.title,
-            certificate: data.certificate,
-            offeredBy: data.offeredBy,
-            platform: data.platform,
-            cardImageUrl: data.cardImageUrl,
-          }
-        : {
-            id: data.id,
-            title: data.title,
-            certificate: data.certificate,
-            offeredBy: data.offeredBy,
-            platform: data.platform,
-          };
+      cardImageUrl = data.cardImageUrl;
     }
+
+    return {
+      id: data.id,
+      title: data.title,
+      certificate: data.certificate,
+      offeredBy: data.offeredBy,
+      platform: data.platform,
+      cardImageUrl,
+    };
   }
 
   add() {
@@ -89,7 +78,8 @@ export class CoursesComponent implements OnInit {
       try {
         if (data) {
           const newCourse = await this.toCourse(data);
-          this.set([...this.courses, newCourse]);
+          await this.set([...this.courses, newCourse]);
+          this.snackbar.open('Course Added!', 'Close', { duration: 3000 });
         }
       } catch (error) {}
     });
@@ -113,11 +103,12 @@ export class CoursesComponent implements OnInit {
       try {
         if (data) {
           const newCourse = await this.toCourse(data);
-          this.set(
+          await this.set(
             this.courses.map((course) =>
               course.id !== data.id ? course : newCourse
             )
           );
+          this.snackbar.open('Course Updated!', 'Close', { duration: 3000 });
         }
       } catch (error) {}
     });
@@ -125,6 +116,7 @@ export class CoursesComponent implements OnInit {
 
   delete(id: string) {
     this.set([...this.courses.filter((course) => course.id !== id)]);
+    this.snackbar.open('Course Deleted!', 'Close', { duration: 3000 });
   }
 
   async set(courses: Course[]) {

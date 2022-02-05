@@ -1,6 +1,6 @@
 <ng-container *ngIf="isReady$ | async; else loading">
   <div *ngIf="project$ | async as project" class="page-container">
-    <h1>
+    <h1 class="truncate">
       <i class="fa fa-cogs"></i>
       <span><a routerLink="/projects">Projects</a></span>
       <span>/</span>
@@ -8,6 +8,17 @@
     </h1>
 
     <div class="content">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img
+          [ngStyle]="{ width: '800px', height: '450px' }"
+          [ngStyle.lt-md]="{ width: '250px', height: '140px' }"
+          [src]="
+            project.cardImageUrl ??
+            'https://firebasestorage.googleapis.com/v0/b/my-website-dev-2aa35.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=3f7d6185-f467-4b86-bd1f-2db8fa9068b1'
+          "
+        />
+      </div>
+      <br /><br />
       <p *ngFor="let desc of project.descs">{{ desc }}</p>
       <br /><br />
       <mat-divider></mat-divider>
@@ -18,7 +29,7 @@
         fxLayoutAlign="start center"
         fxLayoutAlign.lt-md="space-between center"
       >
-        <span fxFlex.lt-md="15" fxFlex="10">Repository Link:</span>
+        <span fxFlex="15">Repository Link:</span>
         <a [href]="project.repoLink" target="_blank" rel="noopener noreferrer">
           {{ project.repoLink }}
         </a>
@@ -30,7 +41,7 @@
         fxLayoutAlign="start center"
         fxLayoutAlign.lt-md="space-between center"
       >
-        <span fxFlex="10">Visit at:</span>
+        <span fxFlex="15">Visit at:</span>
         <a [href]="project.visitLink" target="_blank" rel="noopener noreferrer">
           {{ project.visitLink }}
         </a>

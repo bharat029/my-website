@@ -91,6 +91,7 @@ export class AddUpdateFormComponent implements OnInit {
             certificate: [(this.data.data as Course).certificate],
             offeredBy: [(this.data.data as Course).offeredBy],
             platform: [(this.data.data as Course).platform],
+            cardImageUrl: [(this.data.data as Course).cardImageUrl],
             cardImage: [null],
           });
         } else {
@@ -100,46 +101,55 @@ export class AddUpdateFormComponent implements OnInit {
             certificate: [''],
             offeredBy: [''],
             platform: [''],
+            cardImageUrl: [null],
             cardImage: [null],
           });
         }
         break;
 
-      //   case FormType.PROJECT:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as Project).title ],
-      //         current: [ (this.data.data as Project).current ],
-      //         repoLink: [ (this.data.data as Project).repoLink ],
-      //         visitLink: [ (this.data.data as Project).visitLink ],
-      //         projectCardImage: [ null ],
-      //         descs: this.fb.array([]),
-      //         highlights: this.fb.array([]),
-      //       });
+      case FormType.PROJECT:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Project).id],
+            title: [(this.data.data as Project).title],
+            current: [(this.data.data as Project).current],
+            repoLink: [(this.data.data as Project).repoLink],
+            visitLink: [(this.data.data as Project).visitLink],
+            cardImageUrl: [(this.data.data as Project).cardImageUrl],
+            cardImage: [null],
+            descs: this.fb.array([]),
+            highlights: this.fb.array([]),
+          });
 
-      //       this.descs = (this.formModel.get('descs') as FormArray);
-      //       this.highlights = (this.formModel.get('highlights') as FormArray);
+          this.descs = this.formModel.get('descs') as FormArray;
+          this.highlights = this.formModel.get('highlights') as FormArray;
 
-      //       (this.data.data as Project).descs.forEach(desc => this.pushControl(this.descs, desc));
-      //       (this.data.data as Project).highlights.forEach(hl => this.pushControl(this.highlights, hl));
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [''],
-      //         current: [''],
-      //         repoLink: [''],
-      //         visitLink: [''],
-      //         projectCardImage: [ null ],
-      //         descs: this.fb.array([]),
-      //         highlights: this.fb.array([]),
-      //       });
+          (this.data.data as Project).descs.forEach((desc) =>
+            this.pushControl(this.descs, desc)
+          );
+          (this.data.data as Project).highlights!.forEach((hl) =>
+            this.pushControl(this.highlights, hl)
+          );
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            current: [false],
+            repoLink: [''],
+            visitLink: [''],
+            cardImageUrl: [null],
+            cardImage: [null],
+            descs: this.fb.array([]),
+            highlights: this.fb.array([]),
+          });
 
-      //       this.descs = (this.formModel.get('descs') as FormArray);
-      //       this.highlights = (this.formModel.get('highlights') as FormArray);
+          this.descs = this.formModel.get('descs') as FormArray;
+          this.highlights = this.formModel.get('highlights') as FormArray;
 
-      //       this.pushControl(this.descs, '');
-      //       this.pushControl(this.highlights, '');
-      //     }
-      //     break;
+          this.pushControl(this.descs, '');
+          this.pushControl(this.highlights, '');
+        }
+        break;
 
       case FormType.SPECIALIZATION:
         if (this.data.edit) {
@@ -149,6 +159,7 @@ export class AddUpdateFormComponent implements OnInit {
             certificate: [(this.data.data as Specialization).certificate],
             offeredBy: [(this.data.data as Specialization).offeredBy],
             platform: [(this.data.data as Specialization).platform],
+            cardImageUrl: [(this.data.data as Specialization).cardImageUrl],
             cardImage: [null],
             courses: this.fb.array([]),
           });
@@ -165,6 +176,7 @@ export class AddUpdateFormComponent implements OnInit {
             certificate: [''],
             offeredBy: [''],
             platform: [''],
+            cardImageUrl: [null],
             cardImage: [null],
             courses: this.fb.array([]),
           });

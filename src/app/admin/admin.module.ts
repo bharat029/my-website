@@ -6,6 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTabsModule } from "@angular/material/tabs";
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { SharedModule } from '../shared/shared.module';
 import { AboutsComponent } from './abouts/abouts.component';
@@ -24,7 +26,6 @@ import { SpecializationsComponent } from './specializations/specializations.comp
 import { TechSkillsComponent } from './tech-skills/tech-skills.component';
 import { VolunteerExpsComponent } from './volunteer-exps/volunteer-exps.component';
 import { WorkExpsComponent } from './work-exps/work-exps.component';
-import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
     MatTabsModule,
     MaterialFileInputModule,
     ReactiveFormsModule,

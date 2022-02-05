@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { first, Observable } from 'rxjs';
 import { SetResumeUrl } from 'src/app/store/cv/cv.actions';
@@ -30,6 +31,7 @@ export class GeneralComponent {
   constructor(
     private dialog: MatDialog,
     private firestore: FirestoreService,
+    private snackbar: MatSnackBar,
     private storage: StorageService,
     private store: Store
   ) {}
@@ -54,6 +56,7 @@ export class GeneralComponent {
           if (data) {
             await this.firestore.update(data);
             this.store.dispatch(new SetLandingSubtitle(data.landingSubtitle));
+            this.snackbar.open('Landing Subtitle Updated!', 'Close', { duration: 3000 });
           }
         } catch {}
       });
@@ -83,6 +86,7 @@ export class GeneralComponent {
             );
             await this.firestore.update({ profileImageUrl });
             this.store.dispatch(new SetProfileImage(profileImageUrl));
+            this.snackbar.open('Profile Image Updated!', 'Close', { duration: 3000 });
           }
         } catch {}
       });
@@ -109,9 +113,10 @@ export class GeneralComponent {
           if (data && data.resume) {
             const resumeUrl = await this.storage.uploadResume(
               data.resume.files[0]
-            )
+            );
             await this.firestore.updateCV({ resumeUrl });
             this.store.dispatch(new SetResumeUrl(resumeUrl));
+            this.snackbar.open('Resume Updated!', 'Close', { duration: 3000 });
           }
         } catch (error) {}
       });

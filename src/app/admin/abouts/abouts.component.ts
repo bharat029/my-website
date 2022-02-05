@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from '@firebase/util';
 import { Select, Store } from '@ngxs/store';
 import { SetAbouts } from 'src/app/store/root/root.actions';
@@ -24,6 +25,7 @@ export class AboutsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private firestore: FirestoreService,
+    private snackbar: MatSnackBar,
     private store: Store
   ) {}
 
@@ -44,9 +46,10 @@ export class AboutsComponent implements OnInit {
       },
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((data) => data && this.set([...this.abouts, data]));
+    dialogRef.afterClosed().subscribe(async (data) => {
+      data && (await this.set([...this.abouts, data]));
+      this.snackbar.open('About Added!', 'Close', { duration: 3000 });
+    });
   }
 
   update(about: Content) {
@@ -63,19 +66,18 @@ export class AboutsComponent implements OnInit {
       },
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe(
-        (data) =>
-          data &&
-          this.set(
-            this.abouts.map((about) => (about.id !== data.id ? about : data))
-          )
-      );
+    dialogRef.afterClosed().subscribe(async (data) => {
+      data &&
+        (await this.set(
+          this.abouts.map((about) => (about.id !== data.id ? about : data))
+        ));
+      this.snackbar.open('About Updated!', 'Close', { duration: 3000 });
+    });
   }
 
-  delete(id: string) {
-    this.set([...this.abouts.filter((about) => about.id !== id)]);
+  async delete(id: string) {
+    await this.set([...this.abouts.filter((about) => about.id !== id)]);
+    this.snackbar.open('About Deleted!', 'Close', { duration: 3000 });
   }
 
   async set(abouts: Content[]) {

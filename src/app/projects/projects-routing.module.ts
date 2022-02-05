@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { DetailsComponent } from './details/details.component';
 import { ProjectsComponent } from './projects.component';
 
@@ -15,6 +16,10 @@ const routes: Routes = [
     pathMatch: 'full',
     data: { animation: 'projects' },
   },
+  {
+    path: '**', 
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({

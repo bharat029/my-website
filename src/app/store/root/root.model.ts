@@ -9,7 +9,7 @@ export interface Content {
 export interface CardContent {
   id?: string;
   title: string;
-  cardImageUrl?: string;
+  cardImageUrl?: string | null;
 }
 
 export interface Project extends CardContent {
