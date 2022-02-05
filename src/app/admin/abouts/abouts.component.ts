@@ -47,8 +47,10 @@ export class AboutsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(async (data) => {
-      data && (await this.set([...this.abouts, data]));
-      this.snackbar.open('About Added!', 'Close', { duration: 3000 });
+      if (data) {
+        await this.set([...this.abouts, data]);
+        this.snackbar.open('About Added!', 'Close', { duration: 3000 });
+      }
     });
   }
 
@@ -67,11 +69,12 @@ export class AboutsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(async (data) => {
-      data &&
-        (await this.set(
+      if (data) {
+        await this.set(
           this.abouts.map((about) => (about.id !== data.id ? about : data))
-        ));
-      this.snackbar.open('About Updated!', 'Close', { duration: 3000 });
+        );
+        this.snackbar.open('About Updated!', 'Close', { duration: 3000 });
+      }
     });
   }
 

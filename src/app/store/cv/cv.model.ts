@@ -1,7 +1,4 @@
-interface Content {
-  id?: string;
-  content: string;
-}
+import { Content } from '../root/root.model';
 
 export interface Definition {
   id?: string;

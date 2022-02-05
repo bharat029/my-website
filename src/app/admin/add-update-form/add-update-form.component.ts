@@ -107,6 +107,54 @@ export class AddUpdateFormComponent implements OnInit {
         }
         break;
 
+      case FormType.EDUCATION:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Content).id],
+            content: [(this.data.data as Content).content],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            content: [''],
+          });
+        }
+        break;
+
+      case FormType.HACKATHON:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Hackathon).id],
+            title: [(this.data.data as Hackathon).title],
+            desc: [(this.data.data as Hackathon).desc],
+            event: [(this.data.data as Hackathon).event],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            desc: [''],
+            event: [''],
+          });
+        }
+        break;
+
+      case FormType.POR:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Definition).id],
+            title: [(this.data.data as Definition).title],
+            desc: [(this.data.data as Definition).desc],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            desc: [''],
+          });
+        }
+        break;
+
       case FormType.PROJECT:
         if (this.data.edit) {
           this.formModel = this.fb.group({
@@ -186,102 +234,68 @@ export class AddUpdateFormComponent implements OnInit {
         }
         break;
 
-      //   case FormType.EDUCATION:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         content: [ (this.data.data as Content).content ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         content: [ '' ],
-      //       });
-      //     }
-      //     break;
+      case FormType.TECH_SKILL:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as Definition).id],
+            title: [(this.data.data as Definition).title],
+            desc: [(this.data.data as Definition).desc],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            desc: [''],
+          });
+        }
+        break;
 
-      //   case FormType.TSKILL:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as DefinitiionElement).title ],
-      //         desc: [ (this.data.data as DefinitiionElement).desc ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         desc: [ '' ],
-      //       });
-      //     }
-      //     break;
+      case FormType.VOLUNTEER_EXP:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as VolunteerExperience).id],
+            title: [(this.data.data as VolunteerExperience).title],
+            desc: [(this.data.data as VolunteerExperience).desc],
+            roles: this.fb.array([]),
+          });
 
-      //   case FormType.POR:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as DefinitiionElement).title ],
-      //         desc: [ (this.data.data as DefinitiionElement).desc ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         desc: [ '' ],
-      //       });
-      //     }
-      //     break;
+          this.roles = this.formModel.get('roles') as FormArray;
 
-      //   case FormType.WORK_EXPERIENCE:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as WorkExperience).title ],
-      //         desc: [ (this.data.data as WorkExperience).desc ],
-      //         duration: [ (this.data.data as WorkExperience).duration ],
-      //         role: [ (this.data.data as WorkExperience).role ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         desc: [ '' ],
-      //         duration: [ '' ],
-      //         role: [ '' ],
-      //       });
-      //     }
-      //     break;
+          (this.data.data as VolunteerExperience).roles.forEach((role) =>
+            this.pushControl(this.roles, role)
+          );
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            desc: [''],
+            roles: this.fb.array([]),
+          });
 
-      //   case FormType.HACKATHON:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as Hackathon).title ],
-      //         desc: [ (this.data.data as Hackathon).desc ],
-      //         event: [ (this.data.data as Hackathon).event ],
-      //       });
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [ '' ],
-      //         desc: [ '' ],
-      //         event: [ '' ],
-      //       });
-      //     }
-      //     break;
+          this.roles = this.formModel.get('roles') as FormArray;
+          this.pushControl(this.roles, '');
+        }
+        break;
 
-      //   case FormType.VOLUNTEER_EXPERIENCE:
-      //     if (this.data.edit) {
-      //       this.formModel = this.fb.group({
-      //         title: [ (this.data.data as VolunteerExperience).title ],
-      //         desc: [ (this.data.data as VolunteerExperience).desc ],
-      //         roles: this.fb.array([]),
-      //       });
-
-      //       this.roles = (this.formModel.get('roles') as FormArray);
-
-      //       (this.data.data as VolunteerExperience).roles.forEach(role => this.pushControl(this.roles, role));
-      //     } else {
-      //       this.formModel = this.fb.group({
-      //         title: [''],
-      //         desc: [''],
-      //         roles: this.fb.array([]),
-      //       });
-
-      //       this.roles = (this.formModel.get('roles') as FormArray);
-      //       this.pushControl(this.roles, '');
-      //     }
-      //     break;
+      case FormType.WORK_EXP:
+        if (this.data.edit) {
+          this.formModel = this.fb.group({
+            id: [(this.data.data as WorkExperience).id],
+            title: [(this.data.data as WorkExperience).title],
+            desc: [(this.data.data as WorkExperience).desc],
+            duration: [(this.data.data as WorkExperience).duration],
+            role: [(this.data.data as WorkExperience).role],
+          });
+        } else {
+          this.formModel = this.fb.group({
+            id: [uuidv4()],
+            title: [''],
+            desc: [''],
+            duration: [''],
+            role: [''],
+          });
+        }
+        break;
 
       default:
         break;

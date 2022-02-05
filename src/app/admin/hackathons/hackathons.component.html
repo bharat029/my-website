@@ -1,1 +1,8 @@
-<p>admin-hackathons works!</p>
+<admin-list-view
+  [items]="hackathons"
+  [property]="'title'"
+  (add)="add()"
+  (update)="update($event)"
+  (delete)="delete($event)"
+  (reorder)="set($event)"
+></admin-list-view>

@@ -1,1 +1,8 @@
-<p>admin-pors works!</p>
+<admin-list-view
+  [items]="pors"
+  [property]="'title'"
+  (add)="add()"
+  (update)="update($event)"
+  (delete)="delete($event)"
+  (reorder)="set($event)"
+></admin-list-view>

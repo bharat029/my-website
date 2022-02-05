@@ -98,6 +98,47 @@
         </div>
       </ng-container>
 
+      <ng-container *ngSwitchCase="FormType.EDUCATION">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Content</mat-label>
+          <input matInput formControlName="content" />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="FormType.HACKATHON">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            matInput
+            formControlName="desc"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Event</mat-label>
+          <input matInput formControlName="event" />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="FormType.POR">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            matInput
+            formControlName="desc"
+          ></textarea>
+        </mat-form-field>
+      </ng-container>
+
       <ng-container *ngSwitchCase="FormType.PROJECT">
         <div fxLayout="row wrap" fxLayoutAlign="space-between start">
           <mat-form-field appearance="fill" class="full-width">
@@ -150,7 +191,11 @@
             fxLayoutAlign="space-between center"
             *ngFor="let hl of highlights.controls; let i = index"
           >
-            <mat-form-field appearance="fill" fxFlex="90" formArrayName="highlights">
+            <mat-form-field
+              appearance="fill"
+              fxFlex="90"
+              formArrayName="highlights"
+            >
               <mat-label>Highlight #{{ i + 1 }}</mat-label>
               <input matInput [formControlName]="i" />
             </mat-form-field>
@@ -255,156 +300,81 @@
         </div>
       </ng-container>
 
-      <!--   <ng-container *ngSwitchCase="FormType.PROJECT">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <mat-form-field fxFlex="100">
-            <input matInput placeholder="Title" formControlName="title">
+      <ng-container *ngSwitchCase="FormType.TECH_SKILL">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            matInput
+            formControlName="desc"
+          ></textarea>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="FormType.VOLUNTEER_EXP">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            matInput
+            formControlName="desc"
+          ></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between end">
+          <h3>Roles</h3>
+          <button (click)="pushControl(roles, '')" mat-mini-fab>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <br /><br />
+        <div
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          *ngFor="let role of roles.controls; let i = index"
+        >
+          <mat-form-field appearance="fill" fxFlex="90" formArrayName="roles">
+            <mat-label>Role #{{ i + 1 }}</mat-label>
+            <input matInput [formControlName]="i" />
           </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Repository Link" formControlName="repoLink">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Visit Link" formControlName="visitLink">
-          </mat-form-field>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-            <h3>Description</h3>
-            <button (click)="pushControl(descs, '')" mat-mini-fab><mat-icon>add</mat-icon></button>
-          </div>
-          <br><br><br>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let desc of descs.controls; let i=index">
-            <mat-form-field fxFlex="90" formArrayName="descs">
-              <textarea cdkTextareaAutosize matInput [placeholder]="'Desc #' + (i + 1)" [formControlName]="i"></textarea>
-            </mat-form-field>
-            <button (click)="popControl(descs, i)" color="warn" mat-mini-fab><mat-icon>remove</mat-icon></button>
-          </div>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-            <h3>Highlights</h3>
-            <button (click)="pushControl(highlights, '')" mat-mini-fab><mat-icon>add</mat-icon></button>
-          </div>
-          <br><br><br>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let hl of highlights.controls; let i=index">
-            <mat-form-field fxFlex="90" formArrayName="highlights">
-              <input matInput [placeholder]="'Highlight # ' + (i + 1)" [formControlName]="i">
-            </mat-form-field>
-            <button (click)="popControl(highlights, i)" color="warn" mat-mini-fab><mat-icon>remove</mat-icon></button>
-          </div>
-          <mat-slide-toggle color="primary" formControlName="current">Current</mat-slide-toggle>
-          <br><br>
-          <mat-form-field fxFlex="100">
-            <ngx-mat-file-input #projCardImg formControlName="projectCardImage" name="projectCardImage" placeholder="Project Card Image"></ngx-mat-file-input>
-            <button mat-icon-button matSuffix *ngIf="!projCardImg.empty" (click)="projCardImg.clear($event)">
-              <mat-icon>clear</mat-icon>
-            </button>
-          </mat-form-field>
+          <button (click)="popControl(roles, i)" color="warn" mat-mini-fab>
+            <mat-icon>remove</mat-icon>
+          </button>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="FormType.SPECIALIZATION">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <mat-form-field fxFlex="100">
-            <input matInput placeholder="Title" formControlName="title">
-          </mat-form-field>
-          <mat-form-field fxFlex="100">
-            <input matInput placeholder="Certificate URL" formControlName="certi">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Platform" formControlName="platform">
-          </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Offered By" formControlName="offeredBy">
-          </mat-form-field>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-            <h3>Courses</h3>
-            <button (click)="pushCourseGroup(courses, '', '')" mat-mini-fab><mat-icon>add</mat-icon></button>
-          </div>
-          <br><br><br>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let course of courses.controls; let i=index" formArrayName="courses">
-            <div fxFlex="90" fxLayout="row" fxLayoutAlign="space-between start" [formGroupName]="i">
-              <mat-form-field fxFlex="45">
-                <input matInput [placeholder]="'Course # ' + (i + 1) + ' Title'" formControlName="title">
-              </mat-form-field>
-              <mat-form-field fxFlex="45">
-                <input matInput [placeholder]="'Course # ' + (i + 1) + ' Certificate URL'" formControlName="certi">
-              </mat-form-field>
-            </div>
-            <button (click)="popControl(courses, i)" color="warn" mat-mini-fab><mat-icon>remove</mat-icon></button>
-          </div>
-          <mat-form-field fxFlex="100">
-            <ngx-mat-file-input #specializationCardImg formControlName="specializationCardImage" name="specializationCardImage" placeholder="Specialization Card Image"></ngx-mat-file-input>
-            <button mat-icon-button matSuffix *ngIf="!specializationCardImg.empty" (click)="specializationCardImg.clear($event)">
-              <mat-icon>clear</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.EDUCATION">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Content" formControlName="content">
-        </mat-form-field>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.TSKILL">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Title" formControlName="title">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Description" formControlName="desc">
-        </mat-form-field>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.POR">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Title" formControlName="title">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Description" formControlName="desc">
-        </mat-form-field>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.WORK_EXPERIENCE">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Title" formControlName="title">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <textarea cdkTextareaAutosize matInput placeholder="Description" formControlName="desc"></textarea>
+
+      <ng-container *ngSwitchCase="FormType.WORK_EXP">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between start">
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Duration" formControlName="duration">
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Duration</mat-label>
+            <input matInput formControlName="duration" />
           </mat-form-field>
-          <mat-form-field fxFlex="45">
-            <input matInput placeholder="Role" formControlName="role">
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Role</mat-label>
+            <input matInput formControlName="role" />
           </mat-form-field>
         </div>
-      </ng-container>
-      <ng-container *ngSwitchCase="FormType.HACKATHON">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Title" formControlName="title">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <textarea cdkTextareaAutosize matInput placeholder="Description" formControlName="desc"></textarea>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Event" formControlName="event">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            matInput
+            formControlName="desc"
+          ></textarea>
         </mat-form-field>
       </ng-container>
-      <ng-container *ngSwitchCase="FormType.VOLUNTEER_EXPERIENCE">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <mat-form-field fxFlex="100">
-            <input matInput placeholder="Title" formControlName="title">
-          </mat-form-field>
-          <mat-form-field fxFlex="100">
-            <textarea cdkTextareaAutosize matInput placeholder="Description" formControlName="desc"></textarea>
-          </mat-form-field>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-            <h3>Roles</h3>
-            <button (click)="pushControl(roles, '')" mat-mini-fab><mat-icon>add</mat-icon></button>
-          </div>
-          <br><br><br>
-          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let role of roles.controls; let i=index">
-            <mat-form-field fxFlex="90" formArrayName="roles">
-              <input matInput [placeholder]="'Role # ' + (i + 1)" [formControlName]="i">
-            </mat-form-field>
-            <button (click)="popControl(roles, i)" color="warn" mat-mini-fab><mat-icon>remove</mat-icon></button>
-          </div>
-        </div>
-      </ng-container> -->
+
       <span *ngSwitchDefault></span>
     </ng-container>
     <div fxLayout="row" fxLayoutAlign="center center">
