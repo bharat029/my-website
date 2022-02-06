@@ -12,6 +12,7 @@ import { RootState } from '../store/root/root.state';
 })
 export class CoursesComponent {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
+  @Select(RootState.getPlaceholderUrl) placeholderUrl$!: Observable<string>;
   @Select(RootState.getCourses) courses$!: Observable<Course[]>;
   @Select(RootState.getSpecializations) specializations$!: Observable<Specialization[]>;
   isHandset$!: Observable<boolean>;

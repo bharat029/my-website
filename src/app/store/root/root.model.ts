@@ -42,5 +42,6 @@ export interface UserData {
 
 export interface RootStateModel extends Partial<UserData> {
   isReady: boolean;
+  placeholderUrl: string;
   auth?: AuthStateModel;
 }

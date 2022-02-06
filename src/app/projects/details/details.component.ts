@@ -13,6 +13,7 @@ import { RootState } from 'src/app/store/root/root.state';
 })
 export class DetailsComponent implements OnInit {
   @Select(RootState.getIsReady) isReady$!: Observable<boolean>;
+  @Select(RootState.getPlaceholderUrl) placeholderUrl$!: Observable<string>;
   @Select(RootState.getProjects) projects$!: Observable<Project[]>;
   project$!: Observable<Project>;
 
@@ -34,37 +35,37 @@ export class DetailsComponent implements OnInit {
       )
     );
 
-    combineLatest([this.project$, this.isReady$]).subscribe(
-      ([project, isReady]) => {
-        if (!project && isReady) {
-          this.router.navigate(['/not-found']);
-        } else if (isReady) {
-          this.title.setTitle(project.title + ' | Bharathan Mudaliar');
+    combineLatest([
+      this.project$,
+      this.isReady$,
+      this.placeholderUrl$,
+    ]).subscribe(([project, isReady, placeholderUrl]) => {
+      if (!project && isReady) {
+        this.router.navigate(['/not-found']);
+      } else if (isReady) {
+        this.title.setTitle(project.title + ' | Bharathan Mudaliar');
 
-          this.meta.addTags([
-            {
-              name: 'description',
-              property: 'og:description',
-              content: project.descs.join(''),
-            },
-            {
-              name: 'title',
-              property: 'og:title',
-              content: project.title,
-            },
-            {
-              property: 'og:image',
-              content:
-                project.cardImageUrl ??
-                'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969',
-            },
-            {
-              property: 'og:url',
-              content: `https://bharathanmudaliar.com${this.router.url}`,
-            },
-          ]);
-        }
+        this.meta.addTags([
+          {
+            name: 'description',
+            property: 'og:description',
+            content: project.descs.join(''),
+          },
+          {
+            name: 'title',
+            property: 'og:title',
+            content: project.title,
+          },
+          {
+            property: 'og:image',
+            content: project.cardImageUrl ?? placeholderUrl,
+          },
+          {
+            property: 'og:url',
+            content: `https://bharathanmudaliar.com${this.router.url}`,
+          },
+        ]);
       }
-    );
+    });
   }
 }

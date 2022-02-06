@@ -18,10 +18,7 @@
               mat-card-image
               [ngStyle]="{ height: '250px' }"
               [ngStyle.lt-md]="{ height: '125px' }"
-              [src]="
-                specialization.cardImageUrl ??
-                'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969'
-              "
+              [src]="specialization.cardImageUrl ?? (placeholderUrl$ | async)"
             />
             <mat-card-content>
               <mat-expansion-panel>
@@ -80,10 +77,7 @@
               mat-card-image
               [ngStyle]="{ height: '250px' }"
               [ngStyle.lt-md]="{ height: '125px' }"
-              [src]="
-                course.cardImageUrl ??
-                'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969'
-              "
+              [src]="course.cardImageUrl ?? (placeholderUrl$ | async)"
             />
             <mat-card-actions
               fxLayout="row"

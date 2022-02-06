@@ -10,7 +10,7 @@ import {
   SetLandingSubtitle,
   SetProfileImage,
   SetProjects,
-  SetSpecializations
+  SetSpecializations,
 } from './root.actions';
 import { RootStateModel } from './root.model';
 
@@ -18,6 +18,8 @@ import { RootStateModel } from './root.model';
   name: 'root',
   defaults: {
     isReady: false,
+    placeholderUrl:
+      'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969',
   },
   children: [CvState, AuthState],
 })
@@ -35,6 +37,11 @@ export class RootState {
   @Selector()
   static getIsReady(state: RootStateModel) {
     return state.isReady;
+  }
+
+  @Selector()
+  static getPlaceholderUrl(state: RootStateModel) {
+    return state.placeholderUrl;
   }
 
   @Selector()
@@ -131,5 +138,4 @@ export class RootState {
       specializations: [...payload],
     });
   }
-
 }
