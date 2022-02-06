@@ -56,7 +56,7 @@ export class DetailsComponent implements OnInit {
               property: 'og:image',
               content:
                 project.cardImageUrl ??
-                'https://firebasestorage.googleapis.com/v0/b/my-website-dev-2aa35.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=3f7d6185-f467-4b86-bd1f-2db8fa9068b1',
+                'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969',
             },
             {
               property: 'og:url',
