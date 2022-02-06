@@ -46,7 +46,7 @@ export class ProjectsComponent implements OnInit {
     let cardImageUrl: Project['cardImageUrl'];
 
     if (data.cardImage) {
-      cardImageUrl = await this.storage.uploadSpecializationCardImage(
+      cardImageUrl = await this.storage.uploadProjectCardImage(
         data.cardImage.files[0],
         data.title
       );

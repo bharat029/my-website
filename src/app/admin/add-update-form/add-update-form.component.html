@@ -106,10 +106,16 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="FormType.HACKATHON">
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Title</mat-label>
-          <input matInput formControlName="title" />
-        </mat-form-field>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="45">
+            <mat-label>Event</mat-label>
+            <input matInput formControlName="event" />
+          </mat-form-field>
+        </div>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Description</mat-label>
           <textarea
@@ -117,10 +123,6 @@
             matInput
             formControlName="desc"
           ></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Event</mat-label>
-          <input matInput formControlName="event" />
         </mat-form-field>
       </ng-container>
 
@@ -155,11 +157,15 @@
           </mat-form-field>
           <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
             <h3>Description</h3>
-            <button (click)="pushControl(descs, '')" mat-mini-fab>
+            <button
+              aria-label="Add Description Paragraph"
+              (click)="pushControl(descs, '')"
+              mat-mini-fab
+            >
               <mat-icon>add</mat-icon>
             </button>
           </div>
-          <br /><br /><br />
+          <br /><br />
           <div
             fxFlex="100"
             fxLayout="row"
@@ -167,24 +173,33 @@
             *ngFor="let desc of descs.controls; let i = index"
           >
             <mat-form-field appearance="fill" fxFlex="90" formArrayName="descs">
-              <mat-label>Desc #{{ i + 1 }}</mat-label>
+              <mat-label>Description #{{ i + 1 }}</mat-label>
               <textarea
                 cdkTextareaAutosize
                 matInput
                 [formControlName]="i"
               ></textarea>
             </mat-form-field>
-            <button (click)="popControl(descs, i)" color="warn" mat-mini-fab>
+            <button
+              aria-label="Remove Description Paragraph"
+              (click)="popControl(descs, i)"
+              color="warn"
+              mat-mini-fab
+            >
               <mat-icon>remove</mat-icon>
             </button>
           </div>
           <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
             <h3>Highlights</h3>
-            <button (click)="pushControl(highlights, '')" mat-mini-fab>
+            <button
+              aria-label="Add Highlight"
+              (click)="pushControl(highlights, '')"
+              mat-mini-fab
+            >
               <mat-icon>add</mat-icon>
             </button>
           </div>
-          <br /><br /><br />
+          <br /><br />
           <div
             fxFlex="100"
             fxLayout="row"
@@ -203,11 +218,16 @@
               (click)="popControl(highlights, i)"
               color="warn"
               mat-mini-fab
+              aria-label="Remove Highlight"
             >
               <mat-icon>remove</mat-icon>
             </button>
           </div>
-          <mat-slide-toggle color="primary" formControlName="current">
+          <mat-slide-toggle
+            tabindex="0"
+            color="primary"
+            formControlName="current"
+          >
             Current
           </mat-slide-toggle>
           <br /><br />
@@ -221,6 +241,7 @@
             <button
               mat-icon-button
               matSuffix
+              aria-label="Clear"
               *ngIf="!projCardImg.empty"
               (click)="projCardImg.clear($event)"
             >
@@ -250,11 +271,15 @@
           </mat-form-field>
           <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
             <h3>Courses</h3>
-            <button (click)="pushCourseGroup(courses, '', '')" mat-mini-fab>
+            <button
+              aria-label="Add Course"
+              (click)="pushCourseGroup(courses, '', '')"
+              mat-mini-fab
+            >
               <mat-icon>add</mat-icon>
             </button>
           </div>
-          <br /><br /><br />
+          <br /><br />
           <div
             fxFlex="100"
             fxLayout="row"
@@ -269,15 +294,21 @@
               [formGroupName]="i"
             >
               <mat-form-field appearance="fill" fxFlex="45">
-                <mat-label>Course # {{ i }} Title</mat-label>
+                <mat-label>Course #{{ i + 1 }} Title</mat-label>
                 <input matInput formControlName="title" />
               </mat-form-field>
               <mat-form-field appearance="fill" fxFlex="45">
-                <mat-label>Course # {{ i }} Certificate Url</mat-label>
+                <mat-label>Course #{{ i + 1 }} Certificate Url</mat-label>
                 <input matInput formControlName="certificate" />
               </mat-form-field>
             </div>
-            <button (click)="popControl(courses, i)" color="warn" mat-mini-fab>
+            <button
+              aria-label="Remove Course"
+              class="btn btn-"
+              (click)="popControl(courses, i)"
+              color="warn"
+              mat-mini-fab
+            >
               <mat-icon>remove</mat-icon>
             </button>
           </div>
@@ -291,6 +322,7 @@
             <button
               mat-icon-button
               matSuffix
+              aria-label="Clear"
               *ngIf="!specializationCardImg.empty"
               (click)="specializationCardImg.clear($event)"
             >
@@ -330,7 +362,7 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between end">
           <h3>Roles</h3>
-          <button (click)="pushControl(roles, '')" mat-mini-fab>
+          <button aria-label="Add Role" (click)="pushControl(roles, '')" mat-mini-fab>
             <mat-icon>add</mat-icon>
           </button>
         </div>
@@ -344,7 +376,7 @@
             <mat-label>Role #{{ i + 1 }}</mat-label>
             <input matInput [formControlName]="i" />
           </mat-form-field>
-          <button (click)="popControl(roles, i)" color="warn" mat-mini-fab>
+          <button aria-label="Remove Role" (click)="popControl(roles, i)" color="warn" mat-mini-fab>
             <mat-icon>remove</mat-icon>
           </button>
         </div>

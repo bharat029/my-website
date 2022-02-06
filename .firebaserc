@@ -1,14 +1,7 @@
 {
-  "targets": {
-    "my-website-dev-2aa35": {
-      "hosting": {
-        "my-website": [
-          "my-website-dev-2aa35"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "my-website-dev-2aa35"
-  }
+    "default": "my-website-dev-2aa35",
+    "production": "bharathanmudaliar"
+  },
+  "targets": {}
 }

@@ -78,6 +78,7 @@ export class AppComponent implements OnInit {
           content: profileImageUrl,
         },
         {
+          name: 'image',
           property: 'og:url',
           content: `https://bharathanmudaliar.com${this.router.url}`,
         },

@@ -1,10 +1,12 @@
 {
   "name": "my-website",
-  "version": "0.0.0",
+  "version": "5.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
+    "predeploy": "npm run build && node copyRobots.js",
+    "deploy": "firebase deploy -P production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
