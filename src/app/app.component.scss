@@ -1,5 +1,5 @@
 mat-sidenav {
-  min-width: 50vw;
+  min-width: 75vw;
   max-width: 80vw;
   #sidenav-header {
     height: 56px;
@@ -16,18 +16,30 @@ mat-sidenav {
     }
     div {
       div:first-child {
-        font-size: 0.75rem;
-        line-height: 0.75rem;
+        font-size: 1rem;
+        line-height: 1rem;
       }
       div:last-child {
-        font-size: 0.5rem;
-        line-height: 0.75rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
       }
     }
   }
+  mat-divider {
+    border-color: white;
+    margin: 0 5px;
+  }
   mat-nav-list {
+    mat-divider {
+      border-color: #ffffff25;
+    }
+    a {
+      font-size: 1.25rem;
+    }
     i {
-      margin-right: 2px;
+      margin-right: 3px;
+      width: 2rem;
+      text-align: center;
     }
   }
 }
@@ -41,7 +53,6 @@ mat-sidenav-content {
     z-index: 2;
     justify-content: space-between;
     align-items: center;
-    // min-height: 56px;
     &.desktop {
       min-height: 64px;
     }
@@ -61,7 +72,6 @@ mat-sidenav-content {
       gap: 5px;
       a {
         width: 95px;
-        // height: 2rem;
         text-align: center;
         border-radius: 5px;
         &:hover,

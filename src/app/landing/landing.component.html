@@ -1,22 +1,24 @@
 <div
-  fxLayout="column wrap"
-  fxLayoutAlign="start center"
+  fxLayout="row"
+  fxLayoutAlign="center center"
   id="landing-root"
   [class.mobile]="isHandset$ | async"
 >
-  <div>Hello I'm</div>
-  <div>Bharathan Mudaliar</div>
-  <div>{{ (landingSubtitle$ | async) ?? 'Loading...' }}</div>
-  <mat-divider></mat-divider>
-  <nav fxLayout="row" fxLayoutAlign="space-evenly stretch">
-    <a routerLink="/about">About</a>
+  <div fxLayout="column wrap" fxLayoutAlign="start center">
+    <div>Hello I'm</div>
+    <div>Bharathan Mudaliar</div>
+    <div>{{ (landingSubtitle$ | async) ?? "Loading..." }}</div>
     <mat-divider></mat-divider>
-    <a routerLink="/projects">Projects</a>
-    <mat-divider></mat-divider>
-    <a routerLink="/courses">Courses</a>
-    <mat-divider></mat-divider>
-    <a routerLink="/cv">CV</a>
-  </nav>
+    <nav fxLayout="row" fxLayoutAlign="space-evenly stretch">
+      <a routerLink="/about">About</a>
+      <mat-divider></mat-divider>
+      <a routerLink="/projects">Projects</a>
+      <mat-divider></mat-divider>
+      <a routerLink="/courses">Courses</a>
+      <mat-divider></mat-divider>
+      <a routerLink="/cv">CV</a>
+    </nav>
+  </div>
 </div>
 
 <div
