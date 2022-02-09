@@ -11,8 +11,11 @@ h2 {
   border-radius: 0.5rem;
 }
 mat-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  height: 2rem;
+  height: 4rem;
 }
 mat-card-content {
   margin: 0 -16px;

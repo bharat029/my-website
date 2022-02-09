@@ -7,17 +7,15 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
           <mat-card
             *ngFor="let specialization of specializations$ | async"
-            fxFlex.lt-md="95"
-            fxFlex="45"
-            style="margin: 0.75rem"
+            style="margin: 0.75rem; width: 300px"
           >
             <mat-card-header fxLayout="row" fxLayoutAlign="center center">
               <mat-card-title>{{ specialization.title }}</mat-card-title>
             </mat-card-header>
             <img
               mat-card-image
-              [ngStyle]="{ height: '250px' }"
-              [ngStyle.lt-md]="{ height: '125px' }"
+              height="300"
+              width="300"
               [src]="specialization.cardImageUrl ?? (placeholderUrl$ | async)"
             />
             <mat-card-content>
@@ -66,17 +64,15 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
           <mat-card
             *ngFor="let course of courses$ | async"
-            fxFlex.lt-md="95"
-            fxFlex="45"
-            style="margin: 0.75rem"
+            style="margin: 0.75rem; width: 300px;"
           >
             <mat-card-header fxLayout="row" fxLayoutAlign="center center">
               <mat-card-title>{{ course.title }}</mat-card-title>
             </mat-card-header>
             <img
               mat-card-image
-              [ngStyle]="{ height: '250px' }"
-              [ngStyle.lt-md]="{ height: '125px' }"
+              height="300"
+              width="300"
               [src]="course.cardImageUrl ?? (placeholderUrl$ | async)"
             />
             <mat-card-actions
