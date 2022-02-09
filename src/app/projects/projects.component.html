@@ -3,19 +3,17 @@
     <h1><i class="fa fa-cogs"></i><span>Projects</span></h1>
     <div class="content">
       <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
-        <mat-card
-          *ngFor="let project of projects$ | async"
-          fxFlex.lt-md="95"
-          fxFlex="45"
-          style="margin: 0.75rem"
-        >
+        <mat-card *ngFor="let project of projects$ | async">
           <mat-card-header fxLayout="row" fxLayoutAlign="center center">
             <mat-card-title>{{ project.title }}</mat-card-title>
           </mat-card-header>
           <img
             mat-card-image
-            [ngStyle]="{ height: '250px' }"
-            [ngStyle.lt-md]="{ height: '125px' }"
+            [ngStyle]="
+              (isHandset$ | async)
+                ? { width: '300px', height: '168px' }
+                : { width: '500px', height: '281px' }
+            "
             [src]="
               project.cardImageUrl ??
               'https://firebasestorage.googleapis.com/v0/b/bharathanmudaliar.appspot.com/o/images%2Fplaceholder.jpg?alt=media&token=638795a5-e1ce-486f-994f-77e03f112969'

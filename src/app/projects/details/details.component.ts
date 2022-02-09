@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,13 +17,19 @@ export class DetailsComponent implements OnInit {
   @Select(RootState.getPlaceholderUrl) placeholderUrl$!: Observable<string>;
   @Select(RootState.getProjects) projects$!: Observable<Project[]>;
   project$!: Observable<Project>;
+  isHandset$!: Observable<boolean>;
 
   constructor(
+    private breakpointObserver: BreakpointObserver,
     private title: Title,
     private meta: Meta,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.isHandset$ = this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map((result) => result.matches));
+  }
 
   ngOnInit(): void {
     this.project$ = this.projects$.pipe(

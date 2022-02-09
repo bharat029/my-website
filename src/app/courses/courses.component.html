@@ -4,17 +4,18 @@
     <div class="content">
       <section>
         <h2>Specializations</h2>
-        <div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
           <mat-card *ngFor="let specialization of specializations$ | async">
-            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-              <mat-card-title>{{ specialization.title }}</mat-card-title>
-            </mat-card-header>
-            <img
-              mat-card-image
-              height="300"
-              width="300"
-              [src]="specialization.cardImageUrl ?? (placeholderUrl$ | async)"
-            />
+            <div class="img-container">
+              <img
+                height="300"
+                width="300"
+                [src]="specialization.cardImageUrl ?? (placeholderUrl$ | async)"
+              />
+              <div>
+                <h3>{{ specialization.title }}</h3>
+              </div>
+            </div>
             <mat-card-content>
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -57,17 +58,18 @@
 
       <section>
         <h2>Courses</h2>
-        <div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
           <mat-card *ngFor="let course of courses$ | async">
-            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-              <mat-card-title>{{ course.title }}</mat-card-title>
-            </mat-card-header>
-            <img
-              mat-card-image
-              height="300"
-              width="300"
-              [src]="course.cardImageUrl ?? (placeholderUrl$ | async)"
-            />
+            <div class="img-container">
+              <img
+                height="300"
+                width="300"
+                [src]="course.cardImageUrl ?? (placeholderUrl$ | async)"
+              />
+              <div>
+                <h3>{{ course.title }}</h3>
+              </div>
+            </div>
             <mat-card-actions
               fxLayout="row"
               fxLayoutAlign="space-between center"

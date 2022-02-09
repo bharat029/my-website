@@ -2,148 +2,166 @@
   <div class="page-container">
     <h1><i class="fa fa-info-circle"></i><span>CV</span></h1>
     <div *ngIf="cv$ | async as cv" class="content">
-      <mat-card>
-        <mat-card-header>
-          <h2 mat-card-title>
-            <i class="fa fa-graduation-cap"></i>
-            <span>Education</span>
-          </h2>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          <ul>
-            <li *ngFor="let education of cv.educations">
-              {{ education.content }}
-            </li>
-          </ul>
-        </mat-card-content>
-      </mat-card>
+      <section>
+        <mat-card>
+          <mat-card-header>
+            <h2 mat-card-title>
+              <i class="fa fa-graduation-cap"></i>
+              <span>Education</span>
+            </h2>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <ul>
+              <li *ngFor="let education of cv.educations">
+                {{ education.content }}
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </section>
 
-      <br /><br />
+      <section>
+        <mat-card>
+          <mat-card-header>
+            <h2 mat-card-title>
+              <i class="fa fa-code"></i>
+              <span>Technical Skills</span>
+            </h2>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <dl fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div
+                fxFlex="95"
+                fxFlex.gt-sm="45"
+                *ngFor="let techSkill of cv.techSkills"
+              >
+                <dt>{{ techSkill.title }}</dt>
+                <dd>{{ techSkill.desc }}</dd>
+              </div>
+            </dl>
+          </mat-card-content>
+        </mat-card>
+      </section>
 
-      <mat-card>
-        <mat-card-header>
-          <h2 mat-card-title>
-            <i class="fa fa-code"></i>
-            <span>Technical Skills</span>
-          </h2>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          <dl fxLayout="row wrap" fxLayoutAlign="space-between starrt">
+      <section>
+        <mat-card>
+          <mat-card-header>
+            <h2 mat-card-title>
+              <i class="fa fa-users"></i>
+              <span>Positions of Responsibilities</span>
+            </h2>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <dl>
+              <ng-container *ngFor="let por of cv.pors">
+                <dt>{{ por.title }}</dt>
+                <dd>
+                  <p>{{ por.desc }}</p>
+                </dd>
+              </ng-container>
+            </dl>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <section>
+        <mat-card class="title" fxLayout="row" fxLayoutAlign="center stretch">
+          <mat-card-header>
+            <h2>
+              <i class="fa fa-briefcase"></i>
+              <span>Work Experience</span>
+            </h2>
+          </mat-card-header>
+        </mat-card>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+          <mat-card
+            fxFlex="95"
+            fxFlex.gt-sm="45"
+            *ngFor="let workExp of cv.workExps"
+            style="margin-bottom: 1rem"
+          >
+            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+              <h3>{{ workExp.title }}</h3>
+            </mat-card-header>
+            <mat-divider></mat-divider>
             <div
-              fxFlex="95"
-              fxFlex.gt-sm="45"
-              *ngFor="let techSkill of cv.techSkills"
+              class="subtitles"
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
             >
-              <dt>{{ techSkill.title }}</dt>
-              <dd>{{ techSkill.desc }}</dd>
+              <small class="truncate"> {{ workExp.duration }} </small>
+              <small class="truncate"> {{ workExp.role }} </small>
             </div>
-          </dl>
-        </mat-card-content>
-      </mat-card>
+            <mat-card-content>
+              <p>{{ workExp.desc }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </section>
 
-      <br /><br />
+      <section>
+        <mat-card class="title" fxLayout="row" fxLayoutAlign="center stretch">
+          <mat-card-header>
+            <h2>
+              <i class="fa fa-terminal"></i>
+              <span>Hackathons</span>
+            </h2>
+          </mat-card-header>
+        </mat-card>
 
-      <mat-card fxLayout="row" fxLayoutAlign="center stretch">
-        <mat-card-header>
-          <h2>
-            <i class="fa fa-briefcase"></i>
-            <span>Work Experience</span>
-          </h2>
-        </mat-card-header>
-      </mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+          <mat-card
+            fxFlex="95"
+            fxFlex.gt-sm="45"
+            *ngFor="let hackathon of cv.hackathons"
+            style="margin-bottom: 1rem"
+          >
+            <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+              <h3>{{ hackathon.title }}</h3>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <div
+              class="subtitles"
+              fxLayout="row"
+              fxLayoutAlign="space-between start"
+            >
+              <small class="truncate"> {{ hackathon.event }} </small>
+            </div>
+            <mat-card-content>
+              <p>{{ hackathon.desc }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </section>
 
-      <br />
-
-      <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
-        <mat-card
-          fxFlex="95"
-          fxFlex.gt-sm="45"
-          *ngFor="let workExp of cv.workExps"
-          style="margin-bottom: 1rem"
-        >
-          <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-            <h3>{{ workExp.title }}</h3>
+      <section>
+        <mat-card>
+          <mat-card-header>
+            <h2 mat-card-title>
+              <i class="fa fa-user"></i>
+              <span>Volunteer Experience</span>
+            </h2>
           </mat-card-header>
           <mat-divider></mat-divider>
-          <div
-            class="subtitles"
-            fxLayout="row"
-            fxLayoutAlign="space-between start"
-          >
-            <small class="truncate"> {{ workExp.duration }} </small>
-            <small class="truncate"> {{ workExp.role }} </small>
-          </div>
           <mat-card-content>
-            <p>{{ workExp.desc }}</p>
+            <dl>
+              <ng-container *ngFor="let volunteerExp of cv.volunteerExps">
+                <dt>{{ volunteerExp.title }}</dt>
+                <dd>
+                  <p>{{ volunteerExp.desc }}</p>
+                  <ul>
+                    <li *ngFor="let role of volunteerExp.roles">{{ role }}</li>
+                  </ul>
+                </dd>
+              </ng-container>
+            </dl>
           </mat-card-content>
         </mat-card>
-      </div>
-
-      <br /><br />
-
-      <mat-card fxLayout="row" fxLayoutAlign="center stretch">
-        <mat-card-header>
-          <h2>
-            <i class="fa fa-terminal"></i>
-            <span>Hackathons</span>
-          </h2>
-        </mat-card-header>
-      </mat-card>
-
-      <br />
-
-      <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
-        <mat-card
-          fxFlex="95"
-          fxFlex.gt-sm="45"
-          *ngFor="let hackathon of cv.hackathons"
-          style="margin-bottom: 1rem"
-        >
-          <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-            <h3>{{ hackathon.title }}</h3>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <div
-            class="subtitles"
-            fxLayout="row"
-            fxLayoutAlign="space-between start"
-          >
-            <small class="truncate"> {{ hackathon.event }} </small>
-          </div>
-          <mat-card-content>
-            <p>{{ hackathon.desc }}</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <br /><br />
-
-      <mat-card>
-        <mat-card-header>
-          <h2 mat-card-title>
-            <i class="fa fa-user"></i>
-            <span>Volunteer Experience</span>
-          </h2>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          <dl>
-            <ng-container *ngFor="let volunteerExp of cv.volunteerExps">
-              <dt>{{ volunteerExp.title }}</dt>
-              <dd>
-                <p>{{ volunteerExp.desc }}</p>
-                <ul>
-                  <li *ngFor="let role of volunteerExp.roles">{{ role }}</li>
-                </ul>
-              </dd>
-            </ng-container>
-          </dl>
-        </mat-card-content>
-      </mat-card>
-
-      <br /><br />
+      </section>
 
       <a
         color="accent"

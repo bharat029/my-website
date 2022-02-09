@@ -5,3 +5,15 @@ h2 i, a i {
 mat-card-content {
   padding-top: 1rem;
 }
+dl {
+  padding: 0 0.5rem;
+  dt {
+    padding-top: 0.5rem;
+  }
+}
+section {
+  margin-bottom: 2rem;
+}
+mat-card.title {
+  margin-bottom: 1rem;
+}

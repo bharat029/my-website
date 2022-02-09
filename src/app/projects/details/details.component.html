@@ -10,8 +10,11 @@
     <div class="content">
       <div fxLayout="row" fxLayoutAlign="center center">
         <img
-          [ngStyle]="{ width: '800px', height: '450px' }"
-          [ngStyle.lt-md]="{ width: '250px', height: '140px' }"
+          [ngStyle]="
+            (isHandset$ | async)
+              ? { width: '250px', height: '140px' }
+              : { width: '800px', height: '450px' }
+          "
           [src]="project.cardImageUrl ?? (placeholderUrl$ | async)"
         />
       </div>
@@ -20,27 +23,29 @@
       <br /><br />
       <mat-divider></mat-divider>
       <div
-        style="padding: 0 1rem"
-        *ngIf="project.repoLink"
+        style="margin: auto; width: 90%"
         fxLayout="row"
-        fxLayoutAlign="start center"
-        fxLayoutAlign.lt-md="space-between center"
+        fxLayoutAlign="space-between center"
       >
-        <span fxFlex="15">Repository Link:</span>
-        <a [href]="project.repoLink" target="_blank" rel="noopener noreferrer">
-          {{ project.repoLink }}
+        <a
+          mat-stroked-button
+          *ngIf="project.repoLink"
+          [matTooltip]="project.repoLink"
+          [href]="project.repoLink"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Repository
         </a>
-      </div>
-      <div
-        style="padding: 0 1rem"
-        *ngIf="project.visitLink"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-        fxLayoutAlign.lt-md="space-between center"
-      >
-        <span fxFlex="15">Visit at:</span>
-        <a [href]="project.visitLink" target="_blank" rel="noopener noreferrer">
-          {{ project.visitLink }}
+        <a
+          mat-stroked-button
+          *ngIf="project.visitLink"
+          [matTooltip]="project.visitLink"
+          [href]="project.visitLink"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit
         </a>
       </div>
       <mat-divider></mat-divider>
