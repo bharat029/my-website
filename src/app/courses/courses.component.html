@@ -1,14 +1,11 @@
 <ng-container *ngIf="isReady$ | async; else loading">
   <div class="page-container">
-    <h1><i class="fa fa-book"></i><span>Courses and Specializations</span></h1>
+    <h1><i class="fa fa-book"></i><span>Courses</span></h1>
     <div class="content">
       <section>
         <h2>Specializations</h2>
-        <div fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-          <mat-card
-            *ngFor="let specialization of specializations$ | async"
-            style="margin: 0.75rem; width: 300px"
-          >
+        <div>
+          <mat-card *ngFor="let specialization of specializations$ | async">
             <mat-card-header fxLayout="row" fxLayoutAlign="center center">
               <mat-card-title>{{ specialization.title }}</mat-card-title>
             </mat-card-header>
@@ -41,7 +38,9 @@
               fxLayout="row"
               fxLayoutAlign="space-between center"
             >
-              <span>{{ specialization.offeredBy }}</span>
+              <small class="truncate">
+                {{ specialization.offeredBy }} | {{ specialization.platform }}
+              </small>
               <a
                 mat-stroked-button
                 *ngIf="specialization.cardImageUrl"
@@ -49,11 +48,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Certificate Url
+                Certificate
               </a>
-              <span *ngIf="!(isHandset$ | async)">{{
-                specialization.platform
-              }}</span>
             </mat-card-actions>
           </mat-card>
         </div>
@@ -61,11 +57,8 @@
 
       <section>
         <h2>Courses</h2>
-        <div fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
-          <mat-card
-            *ngFor="let course of courses$ | async"
-            style="margin: 0.75rem; width: 300px;"
-          >
+        <div>
+          <mat-card *ngFor="let course of courses$ | async">
             <mat-card-header fxLayout="row" fxLayoutAlign="center center">
               <mat-card-title>{{ course.title }}</mat-card-title>
             </mat-card-header>
@@ -79,7 +72,9 @@
               fxLayout="row"
               fxLayoutAlign="space-between center"
             >
-              <span>{{ course.offeredBy }}</span>
+              <small class="truncate">
+                {{ course.offeredBy }} | {{ course.platform }}
+              </small>
               <a
                 mat-stroked-button
                 *ngIf="course.cardImageUrl"
@@ -87,9 +82,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Certificate Url
+                Certificate
               </a>
-              <span *ngIf="!(isHandset$ | async)">{{ course.platform }}</span>
             </mat-card-actions>
           </mat-card>
         </div>

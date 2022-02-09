@@ -1,5 +1,11 @@
 section {
   margin-bottom: 2rem;
+  & > div {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: start;
+  }
 }
 h2 {
   width: fit-content;
@@ -9,6 +15,11 @@ h2 {
   padding: 0 1rem;
   border-bottom: 4px double;
   border-radius: 0.5rem;
+}
+mat-card {
+  margin-top: 1rem;
+  width: 300px;
+  overflow: hidden;
 }
 mat-card-title {
   display: flex;
