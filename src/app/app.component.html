@@ -5,36 +5,63 @@
     mode="over"
     [(opened)]="opened"
   >
-    <div id="sidenav-header">
-      <img [src]="profileImageUrl$ | async" alt="Profile Image" />
-      <div>
-        <div>Bharathan Mudaliar</div>
-        <div class="truncate">{{ landingSubtitle$ | async }}</div>
+    <div fxLayout="column" fxLayoutAlign="start stretch" id="sidenav-content">
+      <div id="sidenav-header">
+        <img [src]="profileImageUrl$ | async" alt="Profile Image" />
+        <div>
+          <div>Bharathan Mudaliar</div>
+          <div class="truncate">{{ landingSubtitle$ | async }}</div>
+        </div>
+      </div>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/about" (click)="sidenav.close()">
+          <i class="fa fa-user" mat-list-icon></i>
+          About
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/projects" (click)="sidenav.close()">
+          <i class="fa fa-cogs" mat-list-icon></i>
+          Projects
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/courses" (click)="sidenav.close()">
+          <i class="fa fa-book" mat-list-icon></i>
+          Courses
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/cv" (click)="sidenav.close()">
+          <i class="fa fa-info-circle" mat-list-icon></i>
+          CV
+        </a>
+        <mat-divider></mat-divider>
+      </mat-nav-list>
+      <div style="flex: 1"></div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-evenly center"
+        class="contact-info"
+      >
+        <a aria-label="Email" href="mailto:vbharathan.2013@gmail.com">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <a
+          aria-label="LinkedIn"
+          href="https://www.linkedin.com/in/bharathanmudaliar/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa fa-linkedin"></i>
+        </a>
+        <a
+          aria-label="Github"
+          href="https://github.com/bharat029/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa fa-github"></i>
+        </a>
       </div>
     </div>
-    <mat-divider></mat-divider>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/about" (click)="sidenav.close()">
-        <i class="fa fa-user" mat-list-icon></i>
-        About
-      </a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/projects" (click)="sidenav.close()">
-        <i class="fa fa-cogs" mat-list-icon></i>
-        Projects
-      </a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/courses" (click)="sidenav.close()">
-        <i class="fa fa-book" mat-list-icon></i>
-        Courses
-      </a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/cv" (click)="sidenav.close()">
-        <i class="fa fa-info-circle" mat-list-icon></i>
-        CV
-      </a>
-      <mat-divider></mat-divider>
-    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar [class.desktop]="!(isHandset$ | async)" color="primary">

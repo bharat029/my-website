@@ -1,45 +1,97 @@
 mat-sidenav {
   min-width: 75vw;
   max-width: 80vw;
-  #sidenav-header {
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    padding: 0 5px;
-    img {
-      height: 35px;
-      width: 35px;
-      border: 1px solid;
-      border-radius: 50%;
-    }
-    div {
-      div:first-child {
-        font-size: 1rem;
-        line-height: 1rem;
+  height: 100vh;
+  #sidenav-content {
+    height: 100%;
+    #sidenav-header {
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin: 0 5px;
+      border-bottom: 1px solid;
+      img {
+        height: 35px;
+        width: 35px;
+        border: 1px solid;
+        border-radius: 50%;
       }
-      div:last-child {
-        font-size: 0.75rem;
-        line-height: 1rem;
+      div {
+        div:first-child {
+          font-size: 1rem;
+          line-height: 1rem;
+        }
+        div:last-child {
+          font-size: 0.75rem;
+          line-height: 1rem;
+        }
       }
     }
-  }
-  mat-divider {
-    border-color: white;
-    margin: 0 5px;
-  }
-  mat-nav-list {
-    mat-divider {
-      border-color: #ffffff25;
+    mat-nav-list {
+      mat-divider {
+        border-color: #ffffff25;
+      }
+      a {
+        font-size: 1.25rem;
+      }
+      i {
+        margin-right: 3px;
+        width: 2rem;
+        text-align: center;
+      }
     }
-    a {
-      font-size: 1.25rem;
-    }
-    i {
-      margin-right: 3px;
-      width: 2rem;
-      text-align: center;
+    .contact-info {
+      border-top: 1px solid;
+      padding: 1rem 0;
+      margin-bottom: 4rem;
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      .fa {
+        height: 30px;
+        width: 30px;
+        padding: 10px;
+        font-size: 30px;
+        text-align: center;
+        color: white;
+        border-radius: 50%;
+        transition: 1s ease-in-out;
+        &:hover,
+        &:focus {
+          transform: rotate(360deg);
+          background: white;
+        }
+      }
+      .fa-github {
+        background: #211f1f;
+        border: 1px solid #211f1f;
+        &:hover,
+        &:focus {
+          color: #211f1f !important;
+          border: 1px solid #211f1f !important;
+        }
+      }
+      .fa-linkedin {
+        background: #007bb5;
+        border: 1px solid #007bb5;
+        &:hover,
+        &:focus {
+          color: #007bb5 !important;
+          border: 1px solid #007bb5 !important;
+        }
+      }
+      .fa-envelope {
+        background: #dd4b39;
+        border: 1px solid #dd4b39;
+        &:hover,
+        &:focus {
+          color: #dd4b39 !important;
+          border: 1px solid #dd4b39 !important;
+        }
+      }
     }
   }
 }
