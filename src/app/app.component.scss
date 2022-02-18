@@ -18,7 +18,8 @@ mat-sidenav {
         border: 1px solid;
         border-radius: 50%;
       }
-      div {
+      & > div {
+        width: calc(80vw - 50px);
         div:first-child {
           font-size: 1rem;
           line-height: 1rem;
